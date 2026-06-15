@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ultra Paine 2026 | Pacotes Maturo Viagens</title>
-  <meta name="description" content="Pacotes Express e Experience para correr a Maratona Ultra Paine 2026 na Patagonia chilena, com opcoes com e sem passagem aerea.">
+  <meta name="description" content="Pacotes Express e Experience para correr a Maratona Ultra Paine 2026 na Patagonia chilena, com opções com e sem passagem aerea.">
   <style>
     :root {
       color-scheme: dark;
@@ -53,6 +53,7 @@
       align-items: end;
       isolation: isolate;
       padding: 24px;
+      overflow: hidden;
     }
 
     .hero::before {
@@ -61,11 +62,11 @@
       inset: 0;
       z-index: -2;
       background:
-        linear-gradient(90deg, rgba(2, 7, 10, .9) 0%, rgba(2, 7, 10, .56) 43%, rgba(2, 7, 10, .12) 100%),
+        linear-gradient(90deg, rgba(2, 7, 10, .95) 0%, rgba(2, 7, 10, .72) 45%, rgba(2, 7, 10, .2) 100%),
         linear-gradient(0deg, #071015 0%, rgba(7,16,21,0) 34%),
-        url("EXPERIENCE COM AEREO.png") center right / cover no-repeat;
-      filter: saturate(1.08);
-      transform: scale(1.02);
+        url("bg_image.png") 64% center / cover no-repeat;
+      filter: blur(2px) saturate(1.08) brightness(.86);
+      transform: scale(1.055);
     }
 
     .hero::after {
@@ -99,6 +100,12 @@
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0;
+    }
+
+    .brand-logo {
+      width: 152px;
+      height: auto;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.32));
     }
 
     .brand-mark {
@@ -246,6 +253,7 @@
     .wrap {
       width: min(1180px, 100%);
       margin: 0 auto;
+      min-width: 0;
     }
 
     .section-head {
@@ -263,6 +271,7 @@
       letter-spacing: 0;
       text-transform: uppercase;
       text-wrap: balance;
+      overflow-wrap: anywhere;
     }
 
     .section-head p,
@@ -378,11 +387,262 @@
       box-shadow: 0 0 0 4px rgba(255,255,255,.1);
     }
 
+    .product-configurator {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .control-panel,
+    .product-detail {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025)),
+        rgba(8, 18, 23, .88);
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .control-panel {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .control-panel h3,
+    .product-copy h3 {
+      margin: 0 0 16px;
+      font-size: 1.08rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .control-panel h3 {
+      grid-column: 1 / -1;
+      margin-bottom: 0;
+      align-self: center;
+    }
+
+    .selection-summary {
+      grid-column: 1 / -1;
+      margin-top: 0;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .selection-summary strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-size: 1.05rem;
+    }
+
+    .product-detail {
+      overflow: hidden;
+    }
+
+    .product-hero {
+      position: relative;
+      min-height: 360px;
+      display: grid;
+      align-items: end;
+      padding: 28px;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .product-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: var(--image) center / cover no-repeat;
+      filter: saturate(1.04);
+      transition: transform .45s ease;
+    }
+
+    .product-detail:hover .product-hero::before { transform: scale(1.025); }
+
+    .product-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(0deg, rgba(5,11,14,.96) 0%, rgba(5,11,14,.78) 40%, rgba(5,11,14,.18) 100%),
+        linear-gradient(90deg, rgba(5,11,14,.84), rgba(5,11,14,.22));
+    }
+
+    .product-title {
+      max-width: 650px;
+    }
+
+    .product-title h3 {
+      margin: 0;
+      font-size: clamp(2.35rem, 5.4vw, 5rem);
+      line-height: .9;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .product-title p {
+      max-width: 620px;
+      margin: 14px 0 0;
+      color: rgba(255,255,255,.82);
+      font-size: 1rem;
+    }
+
+    .product-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .42fr);
+      gap: 22px;
+      padding: 28px;
+    }
+
+    .fact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .fact {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.045);
+    }
+
+    .fact small {
+      display: block;
+      color: var(--muted);
+      font-size: .68rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .fact strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 1.02rem;
+    }
+
+    .product-copy p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px 18px;
+      margin-top: 18px;
+    }
+
+    .included-grid span {
+      display: flex;
+      gap: 9px;
+      color: rgba(255,255,255,.86);
+      font-weight: 650;
+    }
+
+    .included-grid span::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      margin-top: 8px;
+      border-radius: 50%;
+      background: var(--accent, var(--orange));
+    }
+
+    .commercial-card {
+      align-self: start;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.1), rgba(255,255,255,.035)),
+        rgba(5, 12, 15, .88);
+      padding: 22px;
+      container-type: inline-size;
+      min-width: 0;
+    }
+
+    .commercial-card small {
+      display: block;
+      color: var(--muted);
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .commercial-card .price {
+      margin-top: 8px;
+      font-size: clamp(2.2rem, 15cqw, 4rem);
+    }
+
+    .commercial-meta {
+      display: grid;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .commercial-meta b { color: var(--ink); }
+
+    details.itinerary {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+
+    details.itinerary summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      cursor: pointer;
+      list-style: none;
+      color: var(--ink);
+      font-size: 1.15rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    details.itinerary summary::-webkit-details-marker { display: none; }
+
+    details.itinerary summary::after {
+      content: "+";
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent, var(--orange));
+      font-size: 1.25rem;
+    }
+
+    details.itinerary[open] summary::after { content: "-"; }
+
+    .itinerary .day-list {
+      margin-top: 18px;
+    }
+
     .deal-panel {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
       gap: 18px;
       align-items: stretch;
+      min-width: 0;
     }
 
     .selector {
@@ -391,6 +651,7 @@
       background: var(--panel);
       padding: 24px;
       box-shadow: var(--shadow);
+      min-width: 0;
     }
 
     .selector h3,
@@ -458,12 +719,21 @@
     .price {
       display: flex;
       align-items: end;
+      flex-wrap: wrap;
       gap: 10px;
       margin: 4px 0 8px;
       font-size: clamp(2.6rem, 5.4vw, 5.2rem);
       line-height: .9;
       font-weight: 950;
       color: var(--accent, var(--orange));
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .price output {
+      min-width: 0;
+      max-width: 100%;
+      white-space: nowrap;
     }
 
     .price span {
@@ -491,11 +761,13 @@
       background: rgba(255,255,255,.05);
       overflow: hidden;
       box-shadow: var(--shadow);
+      min-width: 0;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+      table-layout: fixed;
     }
 
     th,
@@ -504,6 +776,7 @@
       text-align: left;
       border-bottom: 1px solid var(--line);
       vertical-align: top;
+      overflow-wrap: anywhere;
     }
 
     th {
@@ -600,6 +873,13 @@
 
     .closing-card h2 { max-width: 760px; }
 
+    .closing-logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 18px;
+      opacity: .92;
+    }
+
     .contact-line {
       display: flex;
       flex-wrap: wrap;
@@ -627,6 +907,8 @@
       .nav-links { display: none; }
       .proof-strip,
       .package-grid,
+      .product-configurator,
+      .product-body,
       .deal-panel,
       .itinerary-grid,
       .closing-card {
@@ -636,26 +918,44 @@
       .proof { border-right: 0; border-bottom: 1px solid var(--line); }
       .proof:last-child { border-bottom: 0; }
       .section-head { display: grid; }
+      .control-panel {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+      .control-panel h3 { white-space: normal; }
+      .selection-summary {
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+      }
       .poster-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .package { min-height: 470px; }
+      .control-panel { position: static; }
     }
 
     @media (max-width: 620px) {
       .hero { padding: 18px; min-height: 88vh; }
       .nav { padding: 16px 18px; }
+      .brand-logo { width: 118px; }
       .brand-mark { width: 36px; height: 36px; }
       .brand span { font-size: .9rem; }
+      h2 { font-size: clamp(1.85rem, 10vw, 2.7rem); }
       .hero-actions { align-items: stretch; }
       .hero-actions a { width: 100%; }
       .proof-strip { width: calc(100% - 32px); }
       section { padding-left: 16px; padding-right: 16px; }
       .package,
+      .control-panel,
+      .product-body,
       .selector,
       .timeline,
       .closing-card { padding: 20px; }
+      .product-hero { min-height: 330px; padding: 20px; }
+      .fact-grid,
+      .included-grid { grid-template-columns: 1fr; }
       .poster-wall { grid-template-columns: 1fr; }
       th, td { padding: 14px 12px; }
       table { font-size: .9rem; }
+      .price { font-size: clamp(2.25rem, 13vw, 3rem); }
       footer .wrap { display: grid; }
     }
   </style>
@@ -664,14 +964,13 @@
   <main class="page">
     <header class="hero" id="topo">
       <nav class="nav" aria-label="Navegacao principal">
-        <a class="brand" href="#topo" aria-label="Maturo Viagens">
-          <span class="brand-mark">M</span>
-          <span>Maturo Viagens</span>
+        <a class="brand" href="https://maturoviagenseturismo.com.br/" aria-label="Maturo Viagens">
+          <img class="brand-logo" src="maturo (1).png" alt="Maturo Viagens e Turismo">
         </a>
         <div class="nav-links">
           <a href="#pacotes">Pacotes</a>
-          <a href="#valores">Valores</a>
-          <a href="#roteiros">Roteiros</a>
+          <a href="#pacotes">Valores</a>
+          <a href="#pacotes">Roteiro</a>
           <a href="#contato">Contato</a>
         </div>
         <a class="cta" href="https://wa.me/5511919523477?text=Quero%20saber%20mais%20sobre%20os%20pacotes%20Ultra%20Paine%202026" target="_blank" rel="noreferrer">Falar no WhatsApp</a>
@@ -680,9 +979,9 @@
       <div class="hero-inner">
         <p class="eyebrow">Ultra Paine 2026 - Patagonia chilena</p>
         <h1>Corra onde a Patagonia vira lenda</h1>
-        <p class="hero-copy">Pacotes completos para a Maratona Ultra Paine em Torres del Paine, com inscricao inclusa, suporte local, hospedagem, transfers e opcoes com ou sem passagem aerea.</p>
+        <p class="hero-copy">Pacotes completos para a Maratona Ultra Paine em Torres del Paine, com inscrição inclusa, suporte local, hospedagem, transfers e opções com ou sem passagem aérea.</p>
         <div class="hero-actions">
-          <a class="cta" href="#valores">Ver pacotes e valores</a>
+          <a class="cta" href="#pacotes">Ver pacotes e valores</a>
           <a class="ghost" href="PACOTES MARATONA ULTRA PAINE.pdf" target="_blank" rel="noreferrer">Abrir proposta completa</a>
         </div>
       </div>
@@ -698,58 +997,13 @@
     <section id="pacotes">
       <div class="wrap">
         <div class="section-head">
-          <h2>Duas formas de viver a prova</h2>
-          <p>Escolha a viagem essencial, com operacao redonda para a corrida, ou a versao estendida com experiencias extras em Puerto Natales e glaciares.</p>
+          <h2>Escolha seu pacote</h2>
+          <p>Alterne entre Express e Experience, com ou sem passagem aerea, para ver a proposta completa de cada variacao.</p>
         </div>
 
-        <div class="package-grid">
-          <article class="package" style="--image: url('EXPRESS COM AEREO.png'); --accent: var(--orange);">
-            <div class="package-content">
-              <div class="tag-row">
-                <span class="tag">Express</span>
-                <span class="tag">5 dias / 4 noites</span>
-                <span class="tag">23 a 27/09</span>
-              </div>
-              <h3>Ultra Paine Express</h3>
-              <p>O pacote direto ao ponto para atletas que querem chegar, aclimatar, retirar kit, correr e ainda viver um Full Day Torres del Paine.</p>
-              <ul class="feature-list">
-                <li>Hospedagem com cafe da manha em Puerto Natales</li>
-                <li>Transfer Punta Arenas - Puerto Natales - Punta Arenas</li>
-                <li>Kit, logistica da prova, suporte local e inscricao inclusa</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="package" style="--image: url('EXPERIENCE COM AEREO.png'); --accent: var(--blue);">
-            <div class="package-content">
-              <div class="tag-row">
-                <span class="tag">Experience</span>
-                <span class="tag">7 dias / 6 noites</span>
-                <span class="tag">22 a 28/09</span>
-              </div>
-              <h3>Ultra Paine Experience</h3>
-              <p>A jornada completa: mais tempo de adaptacao, Cueva del Milodon e navegacao Balmaceda & Serrano no pos-prova.</p>
-              <ul class="feature-list">
-                <li>Tudo que esta no Express, com duas noites adicionais</li>
-                <li>Visita a Cueva del Milodon</li>
-                <li>Navegacao aos Glaciares Balmaceda e Serrano</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="valores">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Quatro variacoes prontas para vender</h2>
-          <p>Valores de chamada em reais conforme os cards comerciais. A proposta completa tambem traz tarifas em USD por categoria de hotel, acomodacao e distancia.</p>
-        </div>
-
-        <div class="deal-panel">
-          <aside class="selector" aria-label="Simulador de pacote">
-            <h3>Monte a chamada comercial</h3>
+        <div class="product-configurator">
+          <aside class="control-panel" aria-label="Selecionar pacote">
+            <h3>Configurar viagem</h3>
             <div class="toggle-group">
               <span class="toggle-label">Tipo de pacote</span>
               <div class="segmented" role="group" aria-label="Tipo de pacote">
@@ -764,91 +1018,56 @@
                 <button type="button" data-option="air" data-value="with" aria-pressed="false">Com aereo</button>
               </div>
             </div>
-
-            <div class="quote-card" id="quoteCard" style="--accent: var(--orange);">
-              <small id="quoteLabel">Express sem aereo - 5 dias / 4 noites</small>
-              <div class="price"><output id="quoteEntry">R$1.806,84</output><span>entrada</span></div>
-              <p class="installments" id="quoteInstallments">+ 10x sem juros de R$1.109,92</p>
-              <p class="cash" id="quoteCash">A vista com 8% de desconto: R$11.873,52</p>
+            <div class="selection-summary">
+              <strong id="selectionTitle">Express sem aereo</strong>
+              <span id="selectionText">5 dias / 4 noites, de 23 a 27/09/2026, com inscricao inclusa.</span>
             </div>
           </aside>
 
-          <div class="compare">
-            <table aria-label="Comparativo de pacotes">
-              <thead>
-                <tr>
-                  <th>Pacote</th>
-                  <th>Sem aereo</th>
-                  <th>Com aereo</th>
-                  <th>Periodo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Express</strong>5 dias / 4 noites</td>
-                  <td>Entrada R$1.806,84<br>10x R$1.109,92</td>
-                  <td>Entrada R$2.789,64<br>10x R$1.713,64</td>
-                  <td>23 a 27/09/2026</td>
-                </tr>
-                <tr>
-                  <td><strong>Experience</strong>7 dias / 6 noites</td>
-                  <td>Entrada R$2.457,00<br>10x R$1.509,30</td>
-                  <td>Entrada R$3.440,00<br>10x R$2.113,02</td>
-                  <td>22 a 28/09/2026</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
+          <article class="product-detail" id="productDetail" style="--accent: var(--orange); --image: url('express_bg.png');">
+            <div class="product-hero">
+              <div class="product-title">
+                <div class="tag-row" id="productTags">
+                  <span class="tag">Express</span>
+                  <span class="tag">Sem aereo</span>
+                  <span class="tag">5 dias / 4 noites</span>
+                </div>
+                <h3 id="productName">Ultra Paine Express</h3>
+                <p id="productIntro">O pacote direto ao ponto para atletas que querem chegar, aclimatar, retirar kit, correr e ainda viver um Full Day Torres del Paine.</p>
+              </div>
+            </div>
 
-    <section id="roteiros">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Roteiro com suporte de ponta a ponta</h2>
-          <p>A operacao cobre a chegada por Punta Arenas, base em Puerto Natales, logistica no dia da prova e assistencia local SLP Operadora.</p>
-        </div>
+            <div class="product-body">
+              <div class="product-copy">
+                <div class="fact-grid">
+                  <div class="fact"><small>Periodo</small><strong id="productPeriod">23 a 27/09/2026</strong></div>
+                  <div class="fact"><small>Base</small><strong>Puerto Natales</strong></div>
+                  <div class="fact"><small>Distancias</small><strong>21K, 35K e 50K</strong></div>
+                </div>
+                <h3>O que esta incluido</h3>
+                <p id="productDescription">Operação completa para corredores e acompanhantes, com hospedagem, transfers, logistica da prova e suporte local.</p>
+                <div class="included-grid" id="includedList"></div>
+              </div>
 
-        <div class="itinerary-grid">
-          <article class="timeline" style="--accent: var(--orange);">
-            <h3>Express - 5D/4N</h3>
-            <ol class="day-list">
-              <li><time>23/09</time><span><b>Chegada</b>Recepcao em Punta Arenas e transfer privativo para Puerto Natales.</span></li>
-              <li><time>24/09</time><span><b>Kit e aclimatacao</b>Retirada do kit oficial e orientacao operacional.</span></li>
-              <li><time>25/09</time><span><b>Full Day Torres del Paine</b>Passeio panoramico pelo parque nacional.</span></li>
-              <li><time>26/09</time><span><b>Ultra Paine</b>Transfer, apoio local e retorno conforme operacao da corrida.</span></li>
-              <li><time>27/09</time><span><b>Retorno</b>Transfer para o aeroporto de Punta Arenas.</span></li>
-            </ol>
+              <aside class="commercial-card">
+                <small id="quoteLabel">Express sem aereo - 5 dias / 4 noites</small>
+                <div class="price"><output id="quoteEntry">R$1.806,84</output><span>entrada</span></div>
+                <p class="installments" id="quoteInstallments">+ 10x sem juros de R$1.109,92</p>
+                <p class="cash" id="quoteCash">A vista com 8% de desconto: R$11.873,52</p>
+                <div class="commercial-meta">
+                  <span><b>Aereo:</b> <span id="airStatus">nao incluso</span></span>
+                  <span><b>Inscricao:</b> 21K, 35K ou 50K inclusa</span>
+                  <span><b>Hoteis:</b> Turistica, Turistica Superior ou Primeira</span>
+                  <span><b>Grupo:</b> 10 pagantes + 1 FREE terrestre</span>
+                </div>
+              </aside>
+
+              <details class="itinerary">
+                <summary>Roteiro</summary>
+                <ol class="day-list" id="itineraryList"></ol>
+              </details>
+            </div>
           </article>
-
-          <article class="timeline" style="--accent: var(--blue);">
-            <h3>Experience - 7D/6N</h3>
-            <ol class="day-list">
-              <li><time>22/09</time><span><b>Chegada</b>Recepcao e transfer para Puerto Natales.</span></li>
-              <li><time>23/09</time><span><b>Ambientacao</b>Dia de adaptacao, reconhecimento da cidade e briefing.</span></li>
-              <li><time>24/09</time><span><b>Kit e Cueva del Milodon</b>Retirada do kit e visita ao sitio pre-historico.</span></li>
-              <li><time>25/09</time><span><b>Full Day Torres del Paine</b>Mirantes e principais pontos naturais.</span></li>
-              <li><time>26/09</time><span><b>Ultra Paine</b>Logistica especial para atletas e suporte local.</span></li>
-              <li><time>27/09</time><span><b>Balmaceda & Serrano</b>Navegacao aos glaciares no pos-prova.</span></li>
-              <li><time>28/09</time><span><b>Retorno</b>Transfer para Punta Arenas e fim dos servicos.</span></li>
-            </ol>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section aria-label="Cards comerciais">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Cards prontos para campanha</h2>
-          <p>Use os quatro materiais originais como criativos de apoio para trafego, grupos e atendimento consultivo.</p>
-        </div>
-        <div class="poster-wall">
-          <a class="poster" href="EXPRESS S AEREO.png" target="_blank" rel="noreferrer"><img src="EXPRESS S AEREO.png" alt="Card Ultra Paine Express sem aereo"></a>
-          <a class="poster" href="EXPRESS COM AEREO.png" target="_blank" rel="noreferrer"><img src="EXPRESS COM AEREO.png" alt="Card Ultra Paine Express com aereo"></a>
-          <a class="poster" href="EXPERIENCE SEM AEREO.png" target="_blank" rel="noreferrer"><img src="EXPERIENCE SEM AEREO.png" alt="Card Ultra Paine Experience sem aereo"></a>
-          <a class="poster" href="EXPERIENCE COM AEREO.png" target="_blank" rel="noreferrer"><img src="EXPERIENCE COM AEREO.png" alt="Card Ultra Paine Experience com aereo"></a>
         </div>
       </div>
     </section>
@@ -857,12 +1076,13 @@
       <div class="wrap">
         <div class="closing-card">
           <div>
+            <img class="closing-logo" src="maturo branco.png" alt="Maturo Viagens e Turismo">
             <p class="eyebrow">Inscricao inclusa - vagas sujeitas a disponibilidade</p>
             <h2>Leve seu grupo para correr no fim do mundo</h2>
             <div class="contact-line">
               <span>WhatsApp: (11) 9 1952-3477</span>
               <span>Instagram: @maturoviagens</span>
-              <span>Operacao: SLP Operadora</span>
+              <span>Operação SLP Operadora</span>
             </div>
           </div>
           <a class="cta" href="https://wa.me/5511919523477?text=Quero%20reservar%20um%20pacote%20Ultra%20Paine%202026" target="_blank" rel="noreferrer">Solicitar atendimento</a>
@@ -879,32 +1099,92 @@
   </footer>
 
   <script>
-    const offers = {
+    const products = {
       express: {
+        name: "Ultra Paine Express",
+        shortName: "Express",
         accent: "var(--orange)",
+        period: "23 a 27/09/2026",
+        duration: "5 dias / 4 noites",
+        intro: "O pacote direto ao ponto para atletas que querem chegar, aclimatar, retirar kit, correr e ainda viver um Full Day Torres del Paine.",
+        description: "Operação essencial e bem amarrada para corredores e acompanhantes, com base em Puerto Natales, inscricao inclusa, suporte local e logistica de prova.",
+        included: [
+          "Hospedagem por 4 noites com cafe da manha",
+          "Transfers Punta Arenas - Puerto Natales - Punta Arenas",
+          "Retirada do kit oficial",
+          "Full Day Torres del Paine",
+          "Transfer para largada e retorno",
+          "Logistica completa no dia da prova",
+          "Assistencia local SLP Operadora",
+          "01 FREE terrestre para lider do grupo"
+        ],
+        itinerary: [
+          ["23/09", "Chegada", "Recepcao em Punta Arenas e transfer terrestre privativo para Puerto Natales."],
+          ["24/09", "Kit e aclimatacao", "Retirada do kit oficial da Ultra Paine, ajustes finais e orientacao operacional."],
+          ["25/09", "Full Day Torres del Paine", "Passeio panoramico de dia completo pelo Parque Nacional Torres del Paine."],
+          ["26/09", "Ultra Paine", "Logistica especial para atletas, transfer para largada, apoio local e retorno conforme operação da corrida."],
+          ["27/09", "Retorno", "Transfer Puerto Natales - Aeroporto de Punta Arenas e fim dos servicos SLP."]
+        ],
         without: {
           label: "Express sem aereo - 5 dias / 4 noites",
+          image: "express_bg.png",
+          airStatus: "nao incluso",
+          airTag: "Sem aereo",
           entry: "R$1.806,84",
           installments: "+ 10x sem juros de R$1.109,92",
           cash: "A vista com 8% de desconto: R$11.873,52"
         },
         with: {
           label: "Express com aereo - 5 dias / 4 noites",
+          image: "express_bg.png",
+          airStatus: "passagens aereas inclusas, com saidas de Sao Paulo a partir de 22/09/2026",
+          airTag: "Com aereo",
           entry: "R$2.789,64",
           installments: "+ 10x sem juros de R$1.713,64",
           cash: "A vista com 8% de desconto: R$18.331,92"
         }
       },
       experience: {
+        name: "Ultra Paine Experience",
+        shortName: "Experience",
         accent: "var(--blue)",
+        period: "22 a 28/09/2026",
+        duration: "7 dias / 6 noites",
+        intro: "A jornada completa: mais tempo de adaptacao, Cueva del Milodon e navegacao Balmaceda & Serrano no pos-prova.",
+        description: "A versao mais imersiva da viagem, com duas noites adicionais, experiencias classicas da Patagonia chilena e a mesma estrutura de suporte para o dia da prova.",
+        included: [
+          "Hospedagem por 6 noites com cafe da manha",
+          "Transfers Punta Arenas - Puerto Natales - Punta Arenas",
+          "Retirada do kit oficial",
+          "Cueva del Milodon",
+          "Full Day Torres del Paine",
+          "Navegacao Balmaceda & Serrano",
+          "Logistica completa no dia da prova",
+          "01 FREE terrestre para lider do grupo"
+        ],
+        itinerary: [
+          ["22/09", "Chegada", "Recepcao em Punta Arenas e transfer terrestre privativo para Puerto Natales."],
+          ["23/09", "Ambientacao", "Dia de adaptacao, reconhecimento da cidade e briefing operacional da viagem."],
+          ["24/09", "Kit e Cueva del Milodon", "Retirada do kit oficial da Ultra Paine e visita a Cueva del Milodon."],
+          ["25/09", "Full Day Torres del Paine", "Excursao de dia completo pelo parque nacional, com mirantes e pontos naturais."],
+          ["26/09", "Ultra Paine", "Transfer para largadas, apoio operacional conforme distancia e retorno."],
+          ["27/09", "Balmaceda & Serrano", "Navegacao aos Glaciares Balmaceda e Serrano no pos-prova."],
+          ["28/09", "Retorno", "Transfer Puerto Natales - Aeroporto de Punta Arenas e fim dos servicos SLP."]
+        ],
         without: {
           label: "Experience sem aereo - 7 dias / 6 noites",
+          image: "experience_bg.png",
+          airStatus: "nao incluso",
+          airTag: "Sem aereo",
           entry: "R$2.457,00",
           installments: "+ 10x sem juros de R$1.509,30",
           cash: "A vista com 8% de desconto: R$16.146,00"
         },
         with: {
           label: "Experience com aereo - 7 dias / 6 noites",
+          image: "experience_bg.png",
+          airStatus: "passagens aereas inclusas, com saidas de Sao Paulo a partir de 22/09/2026",
+          airTag: "Com aereo",
           entry: "R$3.440,00",
           installments: "+ 10x sem juros de R$2.113,02",
           cash: "A vista com 8% de desconto: R$24.570,00"
@@ -913,16 +1193,39 @@
     };
 
     const state = { type: "express", air: "without" };
-    const quoteCard = document.querySelector("#quoteCard");
+    const productDetail = document.querySelector("#productDetail");
+    const productTags = document.querySelector("#productTags");
+    const productName = document.querySelector("#productName");
+    const productIntro = document.querySelector("#productIntro");
+    const productPeriod = document.querySelector("#productPeriod");
+    const productDescription = document.querySelector("#productDescription");
+    const includedList = document.querySelector("#includedList");
+    const itineraryList = document.querySelector("#itineraryList");
+    const selectionTitle = document.querySelector("#selectionTitle");
+    const selectionText = document.querySelector("#selectionText");
+    const airStatus = document.querySelector("#airStatus");
     const label = document.querySelector("#quoteLabel");
     const entry = document.querySelector("#quoteEntry");
     const installments = document.querySelector("#quoteInstallments");
     const cash = document.querySelector("#quoteCash");
 
     function renderOffer() {
-      const product = offers[state.type];
+      const product = products[state.type];
       const offer = product[state.air];
-      quoteCard.style.setProperty("--accent", product.accent);
+      productDetail.style.setProperty("--accent", product.accent);
+      productDetail.style.setProperty("--image", `url('${offer.image}')`);
+      productTags.innerHTML = [product.shortName, offer.airTag, product.duration].map((tag) => `<span class="tag">${tag}</span>`).join("");
+      productName.textContent = product.name;
+      productIntro.textContent = product.intro;
+      productPeriod.textContent = product.period;
+      productDescription.textContent = product.description;
+      includedList.innerHTML = product.included.map((item) => `<span>${item}</span>`).join("");
+      itineraryList.innerHTML = product.itinerary
+        .map(([date, title, text]) => `<li><time>${date}</time><span><b>${title}</b>${text}</span></li>`)
+        .join("");
+      selectionTitle.textContent = `${product.shortName} ${offer.airTag.toLowerCase()}`;
+      selectionText.textContent = `${product.duration}, de ${product.period.replace("/2026", "")}, com inscrição inclusa.`;
+      airStatus.textContent = offer.airStatus;
       label.textContent = offer.label;
       entry.textContent = offer.entry;
       installments.textContent = offer.installments;
@@ -938,6 +1241,8 @@
         renderOffer();
       });
     });
+
+    renderOffer();
   </script>
 </body>
 </html>
