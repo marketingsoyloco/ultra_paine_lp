@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ultra Paine 2026 | Pacotes Maturo Viagens</title>
+  <meta name="description" content="Pacotes Express e Experience para correr a Maratona Ultra Paine 2026 na Patagonia chilena, com opcoes com e sem passagem aerea.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f6f7f2;
+      --muted: #b9c2c4;
+      --coal: #071015;
+      --panel: rgba(8, 18, 23, .82);
+      --line: rgba(255, 255, 255, .16);
+      --orange: #ff8a2a;
+      --blue: #48a4db;
+      --ice: #d7eff7;
+      --yellow: #f4e947;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .38);
+      --radius: 8px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #071015;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(7,16,21,.12), #071015 88%),
+        radial-gradient(circle at 78% 8%, rgba(72,164,219,.24), transparent 28%);
+    }
+
+    .hero {
+      min-height: 92vh;
+      position: relative;
+      display: grid;
+      align-items: end;
+      isolation: isolate;
+      padding: 24px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(2, 7, 10, .9) 0%, rgba(2, 7, 10, .56) 43%, rgba(2, 7, 10, .12) 100%),
+        linear-gradient(0deg, #071015 0%, rgba(7,16,21,0) 34%),
+        url("EXPERIENCE COM AEREO.png") center right / cover no-repeat;
+      filter: saturate(1.08);
+      transform: scale(1.02);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 100% 84px;
+      opacity: .28;
+      mask-image: linear-gradient(90deg, #000, transparent 72%);
+    }
+
+    .nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px clamp(20px, 5vw, 72px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: .9rem;
+      color: rgba(255,255,255,.82);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.22);
+      color: #071015;
+      background: var(--yellow);
+      font-weight: 850;
+      box-shadow: 0 16px 40px rgba(244,233,71,.2);
+      transition: transform .18s ease, box-shadow .18s ease;
+      white-space: nowrap;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 54px rgba(244,233,71,.26);
+    }
+
+    .hero-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 96px 0 58px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ice);
+      font-size: .83rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--blue));
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(3.4rem, 8vw, 8.4rem);
+      line-height: .84;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      margin: 24px 0 0;
+      color: rgba(255,255,255,.84);
+      font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.9);
+      font-weight: 750;
+      backdrop-filter: blur(14px);
+    }
+
+    .proof-strip {
+      width: min(1180px, calc(100% - 48px));
+      margin: -28px auto 0;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--line);
+      background: rgba(9, 21, 27, .92);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .proof {
+      padding: 22px;
+      border-right: 1px solid var(--line);
+    }
+
+    .proof:last-child { border-right: 0; }
+
+    .proof b {
+      display: block;
+      font-size: clamp(1.35rem, 2.5vw, 2.15rem);
+      line-height: 1;
+    }
+
+    .proof span {
+      color: var(--muted);
+      font-size: .88rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    section {
+      padding: clamp(64px, 8vw, 108px) 24px;
+    }
+
+    .wrap {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 4.5rem);
+      line-height: .94;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .section-head p,
+    .lead {
+      margin: 0;
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .package {
+      position: relative;
+      min-height: 520px;
+      display: grid;
+      align-content: end;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #0b151a;
+      box-shadow: var(--shadow);
+    }
+
+    .package::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: var(--image) center / cover no-repeat;
+      transition: transform .45s ease;
+    }
+
+    .package::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(0deg, rgba(5,11,14,.96) 0%, rgba(5,11,14,.76) 35%, rgba(5,11,14,.2) 72%),
+        linear-gradient(90deg, rgba(5,11,14,.72), transparent 70%);
+    }
+
+    .package:hover::before { transform: scale(1.04); }
+
+    .package-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.88);
+      font-size: .76rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .package h3 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 3.8vw, 3.6rem);
+      line-height: .9;
+      text-transform: uppercase;
+    }
+
+    .package p {
+      margin: 0;
+      color: rgba(255,255,255,.8);
+      max-width: 520px;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 10px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+      color: rgba(255,255,255,.88);
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      flex: 0 0 8px;
+      margin-top: 8px;
+      border-radius: 50%;
+      background: var(--accent, var(--orange));
+      box-shadow: 0 0 0 4px rgba(255,255,255,.1);
+    }
+
+    .deal-panel {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .selector {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .selector h3,
+    .compare h3,
+    .timeline h3 {
+      margin: 0 0 16px;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .toggle-group {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .toggle-label {
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+    }
+
+    .segmented button {
+      min-height: 40px;
+      border: 0;
+      border-radius: 999px;
+      color: rgba(255,255,255,.74);
+      background: transparent;
+      font: inherit;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .segmented button[aria-pressed="true"] {
+      color: #071015;
+      background: var(--ice);
+    }
+
+    .quote-card {
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(255,255,255,.1), rgba(255,255,255,.04));
+      padding: 22px;
+      margin-top: 20px;
+    }
+
+    .quote-card small {
+      color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .price {
+      display: flex;
+      align-items: end;
+      gap: 10px;
+      margin: 4px 0 8px;
+      font-size: clamp(2.6rem, 5.4vw, 5.2rem);
+      line-height: .9;
+      font-weight: 950;
+      color: var(--accent, var(--orange));
+    }
+
+    .price span {
+      color: var(--ink);
+      font-size: 1.04rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .installments,
+    .cash {
+      margin: 0;
+      color: rgba(255,255,255,.86);
+      font-weight: 750;
+    }
+
+    .cash {
+      color: var(--ice);
+      margin-top: 6px;
+    }
+
+    .compare {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 17px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      color: rgba(255,255,255,.78);
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      background: rgba(255,255,255,.06);
+    }
+
+    td strong {
+      display: block;
+      font-size: 1.04rem;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .itinerary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .timeline {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      padding: 24px;
+    }
+
+    .day-list {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .day-list li {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .day-list time {
+      color: var(--accent, var(--orange));
+      font-weight: 950;
+    }
+
+    .day-list b { display: block; }
+
+    .day-list span { color: var(--muted); }
+
+    .poster-wall {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(190px, 1fr));
+      gap: 14px;
+    }
+
+    .poster {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 16px 40px rgba(0,0,0,.22);
+    }
+
+    .poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .closing {
+      position: relative;
+      padding-bottom: 46px;
+    }
+
+    .closing-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: clamp(26px, 5vw, 54px);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(120deg, rgba(255,138,42,.2), transparent 32%),
+        linear-gradient(300deg, rgba(72,164,219,.24), transparent 42%),
+        rgba(9, 21, 27, .94);
+      box-shadow: var(--shadow);
+    }
+
+    .closing-card h2 { max-width: 760px; }
+
+    .contact-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 24px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    footer {
+      padding: 0 24px 32px;
+      color: rgba(255,255,255,.5);
+      font-size: .84rem;
+    }
+
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+
+    @media (max-width: 920px) {
+      .nav-links { display: none; }
+      .proof-strip,
+      .package-grid,
+      .deal-panel,
+      .itinerary-grid,
+      .closing-card {
+        grid-template-columns: 1fr;
+      }
+
+      .proof { border-right: 0; border-bottom: 1px solid var(--line); }
+      .proof:last-child { border-bottom: 0; }
+      .section-head { display: grid; }
+      .poster-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .package { min-height: 470px; }
+    }
+
+    @media (max-width: 620px) {
+      .hero { padding: 18px; min-height: 88vh; }
+      .nav { padding: 16px 18px; }
+      .brand-mark { width: 36px; height: 36px; }
+      .brand span { font-size: .9rem; }
+      .hero-actions { align-items: stretch; }
+      .hero-actions a { width: 100%; }
+      .proof-strip { width: calc(100% - 32px); }
+      section { padding-left: 16px; padding-right: 16px; }
+      .package,
+      .selector,
+      .timeline,
+      .closing-card { padding: 20px; }
+      .poster-wall { grid-template-columns: 1fr; }
+      th, td { padding: 14px 12px; }
+      table { font-size: .9rem; }
+      footer .wrap { display: grid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero" id="topo">
+      <nav class="nav" aria-label="Navegacao principal">
+        <a class="brand" href="#topo" aria-label="Maturo Viagens">
+          <span class="brand-mark">M</span>
+          <span>Maturo Viagens</span>
+        </a>
+        <div class="nav-links">
+          <a href="#pacotes">Pacotes</a>
+          <a href="#valores">Valores</a>
+          <a href="#roteiros">Roteiros</a>
+          <a href="#contato">Contato</a>
+        </div>
+        <a class="cta" href="https://wa.me/5511919523477?text=Quero%20saber%20mais%20sobre%20os%20pacotes%20Ultra%20Paine%202026" target="_blank" rel="noreferrer">Falar no WhatsApp</a>
+      </nav>
+
+      <div class="hero-inner">
+        <p class="eyebrow">Ultra Paine 2026 - Patagonia chilena</p>
+        <h1>Corra onde a Patagonia vira lenda</h1>
+        <p class="hero-copy">Pacotes completos para a Maratona Ultra Paine em Torres del Paine, com inscricao inclusa, suporte local, hospedagem, transfers e opcoes com ou sem passagem aerea.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#valores">Ver pacotes e valores</a>
+          <a class="ghost" href="PACOTES MARATONA ULTRA PAINE.pdf" target="_blank" rel="noreferrer">Abrir proposta completa</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="proof-strip" aria-label="Resumo da viagem">
+      <div class="proof"><b>26/09</b><span>Dia da prova</span></div>
+      <div class="proof"><b>21K 35K 50K</b><span>Distancias disponiveis</span></div>
+      <div class="proof"><b>5D/4N ou 7D/6N</b><span>Express e Experience</span></div>
+      <div class="proof"><b>GRU e GIG</b><span>Opcoes com aereo</span></div>
+    </div>
+
+    <section id="pacotes">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Duas formas de viver a prova</h2>
+          <p>Escolha a viagem essencial, com operacao redonda para a corrida, ou a versao estendida com experiencias extras em Puerto Natales e glaciares.</p>
+        </div>
+
+        <div class="package-grid">
+          <article class="package" style="--image: url('EXPRESS COM AEREO.png'); --accent: var(--orange);">
+            <div class="package-content">
+              <div class="tag-row">
+                <span class="tag">Express</span>
+                <span class="tag">5 dias / 4 noites</span>
+                <span class="tag">23 a 27/09</span>
+              </div>
+              <h3>Ultra Paine Express</h3>
+              <p>O pacote direto ao ponto para atletas que querem chegar, aclimatar, retirar kit, correr e ainda viver um Full Day Torres del Paine.</p>
+              <ul class="feature-list">
+                <li>Hospedagem com cafe da manha em Puerto Natales</li>
+                <li>Transfer Punta Arenas - Puerto Natales - Punta Arenas</li>
+                <li>Kit, logistica da prova, suporte local e inscricao inclusa</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="package" style="--image: url('EXPERIENCE COM AEREO.png'); --accent: var(--blue);">
+            <div class="package-content">
+              <div class="tag-row">
+                <span class="tag">Experience</span>
+                <span class="tag">7 dias / 6 noites</span>
+                <span class="tag">22 a 28/09</span>
+              </div>
+              <h3>Ultra Paine Experience</h3>
+              <p>A jornada completa: mais tempo de adaptacao, Cueva del Milodon e navegacao Balmaceda & Serrano no pos-prova.</p>
+              <ul class="feature-list">
+                <li>Tudo que esta no Express, com duas noites adicionais</li>
+                <li>Visita a Cueva del Milodon</li>
+                <li>Navegacao aos Glaciares Balmaceda e Serrano</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="valores">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Quatro variacoes prontas para vender</h2>
+          <p>Valores de chamada em reais conforme os cards comerciais. A proposta completa tambem traz tarifas em USD por categoria de hotel, acomodacao e distancia.</p>
+        </div>
+
+        <div class="deal-panel">
+          <aside class="selector" aria-label="Simulador de pacote">
+            <h3>Monte a chamada comercial</h3>
+            <div class="toggle-group">
+              <span class="toggle-label">Tipo de pacote</span>
+              <div class="segmented" role="group" aria-label="Tipo de pacote">
+                <button type="button" data-option="type" data-value="express" aria-pressed="true">Express</button>
+                <button type="button" data-option="type" data-value="experience" aria-pressed="false">Experience</button>
+              </div>
+            </div>
+            <div class="toggle-group">
+              <span class="toggle-label">Passagem aerea</span>
+              <div class="segmented" role="group" aria-label="Passagem aerea">
+                <button type="button" data-option="air" data-value="without" aria-pressed="true">Sem aereo</button>
+                <button type="button" data-option="air" data-value="with" aria-pressed="false">Com aereo</button>
+              </div>
+            </div>
+
+            <div class="quote-card" id="quoteCard" style="--accent: var(--orange);">
+              <small id="quoteLabel">Express sem aereo - 5 dias / 4 noites</small>
+              <div class="price"><output id="quoteEntry">R$1.806,84</output><span>entrada</span></div>
+              <p class="installments" id="quoteInstallments">+ 10x sem juros de R$1.109,92</p>
+              <p class="cash" id="quoteCash">A vista com 8% de desconto: R$11.873,52</p>
+            </div>
+          </aside>
+
+          <div class="compare">
+            <table aria-label="Comparativo de pacotes">
+              <thead>
+                <tr>
+                  <th>Pacote</th>
+                  <th>Sem aereo</th>
+                  <th>Com aereo</th>
+                  <th>Periodo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Express</strong>5 dias / 4 noites</td>
+                  <td>Entrada R$1.806,84<br>10x R$1.109,92</td>
+                  <td>Entrada R$2.789,64<br>10x R$1.713,64</td>
+                  <td>23 a 27/09/2026</td>
+                </tr>
+                <tr>
+                  <td><strong>Experience</strong>7 dias / 6 noites</td>
+                  <td>Entrada R$2.457,00<br>10x R$1.509,30</td>
+                  <td>Entrada R$3.440,00<br>10x R$2.113,02</td>
+                  <td>22 a 28/09/2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roteiros">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Roteiro com suporte de ponta a ponta</h2>
+          <p>A operacao cobre a chegada por Punta Arenas, base em Puerto Natales, logistica no dia da prova e assistencia local SLP Operadora.</p>
+        </div>
+
+        <div class="itinerary-grid">
+          <article class="timeline" style="--accent: var(--orange);">
+            <h3>Express - 5D/4N</h3>
+            <ol class="day-list">
+              <li><time>23/09</time><span><b>Chegada</b>Recepcao em Punta Arenas e transfer privativo para Puerto Natales.</span></li>
+              <li><time>24/09</time><span><b>Kit e aclimatacao</b>Retirada do kit oficial e orientacao operacional.</span></li>
+              <li><time>25/09</time><span><b>Full Day Torres del Paine</b>Passeio panoramico pelo parque nacional.</span></li>
+              <li><time>26/09</time><span><b>Ultra Paine</b>Transfer, apoio local e retorno conforme operacao da corrida.</span></li>
+              <li><time>27/09</time><span><b>Retorno</b>Transfer para o aeroporto de Punta Arenas.</span></li>
+            </ol>
+          </article>
+
+          <article class="timeline" style="--accent: var(--blue);">
+            <h3>Experience - 7D/6N</h3>
+            <ol class="day-list">
+              <li><time>22/09</time><span><b>Chegada</b>Recepcao e transfer para Puerto Natales.</span></li>
+              <li><time>23/09</time><span><b>Ambientacao</b>Dia de adaptacao, reconhecimento da cidade e briefing.</span></li>
+              <li><time>24/09</time><span><b>Kit e Cueva del Milodon</b>Retirada do kit e visita ao sitio pre-historico.</span></li>
+              <li><time>25/09</time><span><b>Full Day Torres del Paine</b>Mirantes e principais pontos naturais.</span></li>
+              <li><time>26/09</time><span><b>Ultra Paine</b>Logistica especial para atletas e suporte local.</span></li>
+              <li><time>27/09</time><span><b>Balmaceda & Serrano</b>Navegacao aos glaciares no pos-prova.</span></li>
+              <li><time>28/09</time><span><b>Retorno</b>Transfer para Punta Arenas e fim dos servicos.</span></li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Cards comerciais">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Cards prontos para campanha</h2>
+          <p>Use os quatro materiais originais como criativos de apoio para trafego, grupos e atendimento consultivo.</p>
+        </div>
+        <div class="poster-wall">
+          <a class="poster" href="EXPRESS S AEREO.png" target="_blank" rel="noreferrer"><img src="EXPRESS S AEREO.png" alt="Card Ultra Paine Express sem aereo"></a>
+          <a class="poster" href="EXPRESS COM AEREO.png" target="_blank" rel="noreferrer"><img src="EXPRESS COM AEREO.png" alt="Card Ultra Paine Express com aereo"></a>
+          <a class="poster" href="EXPERIENCE SEM AEREO.png" target="_blank" rel="noreferrer"><img src="EXPERIENCE SEM AEREO.png" alt="Card Ultra Paine Experience sem aereo"></a>
+          <a class="poster" href="EXPERIENCE COM AEREO.png" target="_blank" rel="noreferrer"><img src="EXPERIENCE COM AEREO.png" alt="Card Ultra Paine Experience com aereo"></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" id="contato">
+      <div class="wrap">
+        <div class="closing-card">
+          <div>
+            <p class="eyebrow">Inscricao inclusa - vagas sujeitas a disponibilidade</p>
+            <h2>Leve seu grupo para correr no fim do mundo</h2>
+            <div class="contact-line">
+              <span>WhatsApp: (11) 9 1952-3477</span>
+              <span>Instagram: @maturoviagens</span>
+              <span>Operacao: SLP Operadora</span>
+            </div>
+          </div>
+          <a class="cta" href="https://wa.me/5511919523477?text=Quero%20reservar%20um%20pacote%20Ultra%20Paine%202026" target="_blank" rel="noreferrer">Solicitar atendimento</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Ultra Paine 2026 - Torres del Paine, Puerto Natales, Chile.</span>
+      <span>Valores, hoteis e inscricoes sujeitos a disponibilidade no momento da reserva.</span>
+    </div>
+  </footer>
+
+  <script>
+    const offers = {
+      express: {
+        accent: "var(--orange)",
+        without: {
+          label: "Express sem aereo - 5 dias / 4 noites",
+          entry: "R$1.806,84",
+          installments: "+ 10x sem juros de R$1.109,92",
+          cash: "A vista com 8% de desconto: R$11.873,52"
+        },
+        with: {
+          label: "Express com aereo - 5 dias / 4 noites",
+          entry: "R$2.789,64",
+          installments: "+ 10x sem juros de R$1.713,64",
+          cash: "A vista com 8% de desconto: R$18.331,92"
+        }
+      },
+      experience: {
+        accent: "var(--blue)",
+        without: {
+          label: "Experience sem aereo - 7 dias / 6 noites",
+          entry: "R$2.457,00",
+          installments: "+ 10x sem juros de R$1.509,30",
+          cash: "A vista com 8% de desconto: R$16.146,00"
+        },
+        with: {
+          label: "Experience com aereo - 7 dias / 6 noites",
+          entry: "R$3.440,00",
+          installments: "+ 10x sem juros de R$2.113,02",
+          cash: "A vista com 8% de desconto: R$24.570,00"
+        }
+      }
+    };
+
+    const state = { type: "express", air: "without" };
+    const quoteCard = document.querySelector("#quoteCard");
+    const label = document.querySelector("#quoteLabel");
+    const entry = document.querySelector("#quoteEntry");
+    const installments = document.querySelector("#quoteInstallments");
+    const cash = document.querySelector("#quoteCash");
+
+    function renderOffer() {
+      const product = offers[state.type];
+      const offer = product[state.air];
+      quoteCard.style.setProperty("--accent", product.accent);
+      label.textContent = offer.label;
+      entry.textContent = offer.entry;
+      installments.textContent = offer.installments;
+      cash.textContent = offer.cash;
+      document.querySelectorAll("[data-option]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(state[button.dataset.option] === button.dataset.value));
+      });
+    }
+
+    document.querySelectorAll("[data-option]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state[button.dataset.option] = button.dataset.value;
+        renderOffer();
+      });
+    });
+  </script>
+</body>
+</html>
