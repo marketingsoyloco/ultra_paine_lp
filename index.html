@@ -285,7 +285,7 @@
 
     .package-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 18px;
     }
 
@@ -587,6 +587,23 @@
       font-size: clamp(2.2rem, 15cqw, 4rem);
     }
 
+    .rate-line,
+    .rate-message,
+    .usd-line {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 650;
+    }
+
+    .rate-message {
+      color: var(--ice);
+    }
+
+    .rate-message.error {
+      color: #ffb08a;
+    }
+
     .commercial-meta {
       display: grid;
       gap: 8px;
@@ -667,7 +684,7 @@
     .toggle-group {
       display: grid;
       gap: 10px;
-      margin-bottom: 18px;
+      margin-bottom: 0;
     }
 
     .toggle-label {
@@ -687,8 +704,13 @@
       background: rgba(255,255,255,.06);
     }
 
+    .segmented.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .segmented button {
       min-height: 40px;
+      padding: 0 8px;
       border: 0;
       border-radius: 999px;
       color: rgba(255,255,255,.74);
@@ -696,6 +718,7 @@
       font: inherit;
       font-weight: 850;
       cursor: pointer;
+      overflow-wrap: anywhere;
     }
 
     .segmented button[aria-pressed="true"] {
@@ -742,18 +765,6 @@
       font-size: 1.04rem;
       font-weight: 900;
       margin-bottom: 8px;
-    }
-
-    .installments,
-    .cash {
-      margin: 0;
-      color: rgba(255,255,255,.86);
-      font-weight: 750;
-    }
-
-    .cash {
-      color: var(--ice);
-      margin-top: 6px;
     }
 
     .compare {
@@ -920,7 +931,7 @@
       .proof:last-child { border-bottom: 0; }
       .section-head { display: grid; }
       .control-panel {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         align-items: stretch;
       }
       .control-panel h3 { white-space: normal; }
@@ -953,6 +964,7 @@
       .product-hero { min-height: 330px; padding: 20px; }
       .fact-grid,
       .included-grid { grid-template-columns: 1fr; }
+      .control-panel { grid-template-columns: 1fr; }
       .poster-wall { grid-template-columns: 1fr; }
       th, td { padding: 14px 12px; }
       table { font-size: .9rem; }
@@ -1018,6 +1030,30 @@
                 <button type="button" data-option="air" data-value="with" aria-pressed="false">Com aéreo</button>
               </div>
             </div>
+            <div class="toggle-group">
+              <span class="toggle-label">Categoria</span>
+              <div class="segmented three" role="group" aria-label="Categoria de hotel">
+                <button type="button" data-option="category" data-value="turistica" aria-pressed="false">Turística</button>
+                <button type="button" data-option="category" data-value="turisticaSuperior" aria-pressed="false">Superior</button>
+                <button type="button" data-option="category" data-value="primeira" aria-pressed="false">Primeira</button>
+              </div>
+            </div>
+            <div class="toggle-group">
+              <span class="toggle-label">Apartamento</span>
+              <div class="segmented three" role="group" aria-label="Tipo de apartamento">
+                <button type="button" data-option="apartment" data-value="single" aria-pressed="false">Single</button>
+                <button type="button" data-option="apartment" data-value="duplo" aria-pressed="false">Duplo</button>
+                <button type="button" data-option="apartment" data-value="triplo" aria-pressed="false">Triplo</button>
+              </div>
+            </div>
+            <div class="toggle-group">
+              <span class="toggle-label">Distância</span>
+              <div class="segmented three" role="group" aria-label="Distância da prova">
+                <button type="button" data-option="distance" data-value="21K" aria-pressed="false">21K</button>
+                <button type="button" data-option="distance" data-value="35K" aria-pressed="false">35K</button>
+                <button type="button" data-option="distance" data-value="50K" aria-pressed="false">50K</button>
+              </div>
+            </div>
             <div class="selection-summary">
               <strong id="selectionTitle">Express sem aéreo</strong>
               <span id="selectionText">5 dias / 4 noites, de 23 a 27/09/2026, com inscrição inclusa.</span>
@@ -1051,13 +1087,14 @@
 
               <aside class="commercial-card">
                 <small id="quoteLabel">Express sem aéreo - 5 dias / 4 noites</small>
-                <div class="price"><output id="quoteEntry">R$1.806,84</output><span>entrada</span></div>
-                <p class="installments" id="quoteInstallments">+ 10x sem juros de R$1.109,92</p>
-                <p class="cash" id="quoteCash">À vista com 8% de desconto: R$11.873,52</p>
+                <div class="price"><output id="quoteEntry">Carregando</output><span id="priceQualifier">a partir de</span></div>
+                <p class="usd-line" id="quoteUsd">USD por pessoa</p>
+                <p class="rate-line"><strong>Cotação:</strong> <span id="usd-sell">carregando...</span></p>
+                <p class="rate-message" id="quoteNotice">cotação sujeita a conferência real no momento do fechamento</p>
                 <div class="commercial-meta">
                   <span><b>Aéreo:</b> <span id="airStatus">não incluso</span></span>
-                  <span><b>Inscrição:</b> 21K, 35K ou 50K inclusa</span>
-                  <span><b>Hotéis:</b> Turística, Turística Superior ou Primeira</span>
+                  <span><b>Inscrição:</b> <span id="distanceStatus">21K, 35K ou 50K inclusa</span></span>
+                  <span><b>Hotéis:</b> <span id="hotelStatus">Turística, Turística Superior ou Primeira</span></span>
                   <span><b>Grupo:</b> 10 pagantes + 1 FREE terrestre</span>
                 </div>
               </aside>
@@ -1098,7 +1135,89 @@
     </div>
   </footer>
 
+  <script src="cambio.js"></script>
   <script>
+    const categories = {
+      turistica: "Turística",
+      turisticaSuperior: "Turística Superior",
+      primeira: "Primeira"
+    };
+
+    const apartments = {
+      single: "Single",
+      duplo: "Duplo",
+      triplo: "Triplo"
+    };
+
+    const distances = {
+      "21K": "21K",
+      "35K": "35K",
+      "50K": "50K"
+    };
+
+    const landRates = {
+      express: [
+        { category: "turistica", apartment: "single", "21K": 2800, "35K": 2810, "50K": 2890 },
+        { category: "turistica", apartment: "duplo", "21K": 2150, "35K": 2160, "50K": 2220 },
+        { category: "turistica", apartment: "triplo", "21K": 2040, "35K": 2050, "50K": 2110 },
+        { category: "turisticaSuperior", apartment: "single", "21K": 3110, "35K": 3120, "50K": 3200 },
+        { category: "turisticaSuperior", apartment: "duplo", "21K": 2390, "35K": 2400, "50K": 2460 },
+        { category: "turisticaSuperior", apartment: "triplo", "21K": 2270, "35K": 2280, "50K": 2340 },
+        { category: "primeira", apartment: "single", "21K": 3450, "35K": 3460, "50K": 3540 },
+        { category: "primeira", apartment: "duplo", "21K": 2650, "35K": 2660, "50K": 2720 },
+        { category: "primeira", apartment: "triplo", "21K": 2520, "35K": 2530, "50K": 2580 }
+      ],
+      experience: [
+        { category: "turistica", apartment: "single", "21K": 3760, "35K": 3770, "50K": 3850 },
+        { category: "turistica", apartment: "duplo", "21K": 2890, "35K": 2900, "50K": 2960 },
+        { category: "turistica", apartment: "triplo", "21K": 2750, "35K": 2760, "50K": 2810 },
+        { category: "turisticaSuperior", apartment: "single", "21K": 4230, "35K": 4240, "50K": 4320 },
+        { category: "turisticaSuperior", apartment: "duplo", "21K": 3250, "35K": 3260, "50K": 3320 },
+        { category: "turisticaSuperior", apartment: "triplo", "21K": 3090, "35K": 3100, "50K": 3150 },
+        { category: "primeira", apartment: "single", "21K": 4670, "35K": 4680, "50K": 4760 },
+        { category: "primeira", apartment: "duplo", "21K": 3590, "35K": 3600, "50K": 3660 },
+        { category: "primeira", apartment: "triplo", "21K": 3410, "35K": 3420, "50K": 3480 }
+      ]
+    };
+
+    const air21Rates = {
+      express: [
+        { category: "turistica", apartment: "single", "21K": 4100 },
+        { category: "turistica", apartment: "duplo", "21K": 3450 },
+        { category: "turistica", apartment: "triplo", "21K": 3340 },
+        { category: "turisticaSuperior", apartment: "single", "21K": 4410 },
+        { category: "turisticaSuperior", apartment: "duplo", "21K": 3690 },
+        { category: "turisticaSuperior", apartment: "triplo", "21K": 3570 },
+        { category: "primeira", apartment: "single", "21K": 4750 },
+        { category: "primeira", apartment: "duplo", "21K": 3950 },
+        { category: "primeira", apartment: "triplo", "21K": 3820 }
+      ],
+      experience: [
+        { category: "turistica", apartment: "single", "21K": 5060 },
+        { category: "turistica", apartment: "duplo", "21K": 4190 },
+        { category: "turistica", apartment: "triplo", "21K": 4050 },
+        { category: "turisticaSuperior", apartment: "single", "21K": 5530 },
+        { category: "turisticaSuperior", apartment: "duplo", "21K": 4550 },
+        { category: "turisticaSuperior", apartment: "triplo", "21K": 4390 },
+        { category: "primeira", apartment: "single", "21K": 5970 },
+        { category: "primeira", apartment: "duplo", "21K": 4890 },
+        { category: "primeira", apartment: "triplo", "21K": 4710 }
+      ]
+    };
+
+    function ratesWithAir(productKey) {
+      return air21Rates[productKey].map((airRow) => {
+        const landRow = landRates[productKey].find((row) => row.category === airRow.category && row.apartment === airRow.apartment);
+        return {
+          category: airRow.category,
+          apartment: airRow.apartment,
+          "21K": airRow["21K"],
+          "35K": airRow["21K"] + (landRow["35K"] - landRow["21K"]),
+          "50K": airRow["21K"] + (landRow["50K"] - landRow["21K"])
+        };
+      });
+    }
+
     const products = {
       express: {
         name: "Ultra Paine Express",
@@ -1130,18 +1249,14 @@
           image: "media/express_bg.png",
           airStatus: "não incluso",
           airTag: "Sem aéreo",
-          entry: "R$1.806,84",
-          installments: "+ 10x sem juros de R$1.109,92",
-          cash: "À vista com 8% de desconto: R$11.873,52"
+          rates: landRates.express
         },
         with: {
           label: "Express com aéreo - 5 dias / 4 noites",
           image: "media/express_bg.png",
           airStatus: "passagens aéreas inclusas, com saídas de Sao Paulo a partir de 22/09/2026",
           airTag: "Com aéreo",
-          entry: "R$2.789,64",
-          installments: "+ 10x sem juros de R$1.713,64",
-          cash: "À vista com 8% de desconto: R$18.331,92"
+          rates: ratesWithAir("express")
         }
       },
       experience: {
@@ -1173,26 +1288,25 @@
         ],
         without: {
           label: "Experience sem aéreo - 7 dias / 6 noites",
-          image: "experience_bg.png",
+          image: "media/experience_bg.png",
           airStatus: "não incluso",
           airTag: "Sem aéreo",
-          entry: "R$2.457,00",
-          installments: "+ 10x sem juros de R$1.509,30",
-          cash: "À vista com 8% de desconto: R$16.146,00"
+          rates: landRates.experience
         },
         with: {
           label: "Experience com aéreo - 7 dias / 6 noites",
           image: "media/experience_bg.png",
           airStatus: "passagens aéreas inclusas, com saídas de Sao Paulo a partir de 22/09/2026",
           airTag: "Com aéreo",
-          entry: "R$3.440,00",
-          installments: "+ 10x sem juros de R$2.113,02",
-          cash: "À vista com 8% de desconto: R$24.570,00"
+          rates: ratesWithAir("experience")
         }
       }
     };
 
-    const state = { type: "express", air: "without" };
+    const state = { type: "express", air: "without", category: null, apartment: null, distance: null };
+    let exchangeStatus = "loading";
+    let exchangeData = null;
+
     const productDetail = document.querySelector("#productDetail");
     const productTags = document.querySelector("#productTags");
     const productName = document.querySelector("#productName");
@@ -1204,17 +1318,65 @@
     const selectionTitle = document.querySelector("#selectionTitle");
     const selectionText = document.querySelector("#selectionText");
     const airStatus = document.querySelector("#airStatus");
+    const distanceStatus = document.querySelector("#distanceStatus");
+    const hotelStatus = document.querySelector("#hotelStatus");
     const label = document.querySelector("#quoteLabel");
     const entry = document.querySelector("#quoteEntry");
-    const installments = document.querySelector("#quoteInstallments");
-    const cash = document.querySelector("#quoteCash");
+    const priceQualifier = document.querySelector("#priceQualifier");
+    const quoteUsd = document.querySelector("#quoteUsd");
+    const quoteNotice = document.querySelector("#quoteNotice");
+    const usdSell = document.querySelector("#usd-sell");
+
+    function formatBRL(value) {
+      return Math.ceil(value).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+    }
+
+    function formatUSD(value) {
+      return `USD ${value.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+    }
+
+    function selectedRateRows(offer) {
+      return offer.rates.filter((row) =>
+        (!state.category || row.category === state.category) &&
+        (!state.apartment || row.apartment === state.apartment)
+      );
+    }
+
+    function currentPrice(offer) {
+      const rows = selectedRateRows(offer);
+      const distanceKeys = state.distance ? [state.distance] : Object.keys(distances);
+      const candidates = rows.flatMap((row) =>
+        distanceKeys.map((distance) => ({
+          usd: row[distance],
+          category: row.category,
+          apartment: row.apartment,
+          distance
+        }))
+      );
+
+      return candidates.reduce((lowest, candidate) => !lowest || candidate.usd < lowest.usd ? candidate : lowest, null);
+    }
+
+    function hasFullPriceSelection() {
+      return Boolean(state.category && state.apartment && state.distance);
+    }
 
     function renderOffer() {
       const product = products[state.type];
       const offer = product[state.air];
+      const price = currentPrice(offer);
+      const exactSelection = hasFullPriceSelection();
       productDetail.style.setProperty("--accent", product.accent);
       productDetail.style.setProperty("--image", `url('${offer.image}')`);
-      productTags.innerHTML = [product.shortName, offer.airTag, product.duration].map((tag) => `<span class="tag">${tag}</span>`).join("");
+      const dynamicTags = [
+        product.shortName,
+        offer.airTag,
+        product.duration,
+        state.category ? categories[state.category] : null,
+        state.apartment ? apartments[state.apartment] : null,
+        state.distance || null
+      ].filter(Boolean);
+      productTags.innerHTML = dynamicTags.map((tag) => `<span class="tag">${tag}</span>`).join("");
       productName.textContent = product.name;
       productIntro.textContent = product.intro;
       productPeriod.textContent = product.period;
@@ -1224,12 +1386,37 @@
         .map(([date, title, text]) => `<li><time>${date}</time><span><b>${title}</b>${text}</span></li>`)
         .join("");
       selectionTitle.textContent = `${product.shortName} ${offer.airTag.toLowerCase()}`;
-      selectionText.textContent = `${product.duration}, de ${product.period.replace("/2026", "")}, com inscrição inclusa.`;
+      selectionText.textContent = exactSelection
+        ? `${categories[state.category]} - ${apartments[state.apartment]} - ${state.distance}, de ${product.period.replace("/2026", "")}.`
+        : `${product.duration}, de ${product.period.replace("/2026", "")}. Escolha categoria, apartamento e distância para ver o valor exato.`;
       airStatus.textContent = offer.airStatus;
+      distanceStatus.textContent = state.distance ? `${state.distance} inclusa` : "21K, 35K ou 50K inclusa";
+      hotelStatus.textContent = state.category ? categories[state.category] : "Turística, Turística Superior ou Primeira";
       label.textContent = offer.label;
-      entry.textContent = offer.entry;
-      installments.textContent = offer.installments;
-      cash.textContent = offer.cash;
+
+      if (price && exchangeStatus === "ready" && exchangeData) {
+        entry.textContent = formatBRL(price.usd * exchangeData.rate);
+        priceQualifier.textContent = exactSelection ? "por pessoa" : "a partir de";
+        quoteUsd.textContent = `${formatUSD(price.usd)} por pessoa`;
+        usdSell.textContent = `${exchangeData.rate.toFixed(4)} (${exchangeData.date})`;
+        quoteNotice.textContent = "cotação sujeita a conferência real no momento do fechamento";
+        quoteNotice.classList.remove("error");
+      } else if (price && exchangeStatus === "error") {
+        entry.textContent = formatUSD(price.usd);
+        priceQualifier.textContent = exactSelection ? "por pessoa" : "a partir de";
+        quoteUsd.textContent = "valor em dólar por pessoa";
+        usdSell.textContent = "indisponível";
+        quoteNotice.textContent = "erro ao buscar cotação dólar atualizada";
+        quoteNotice.classList.add("error");
+      } else {
+        entry.textContent = "Carregando";
+        priceQualifier.textContent = exactSelection ? "por pessoa" : "a partir de";
+        quoteUsd.textContent = price ? `${formatUSD(price.usd)} por pessoa` : "USD por pessoa";
+        usdSell.textContent = "carregando...";
+        quoteNotice.textContent = "cotação sujeita a conferência real no momento do fechamento";
+        quoteNotice.classList.remove("error");
+      }
+
       document.querySelectorAll("[data-option]").forEach((button) => {
         button.setAttribute("aria-pressed", String(state[button.dataset.option] === button.dataset.value));
       });
@@ -1241,6 +1428,28 @@
         renderOffer();
       });
     });
+
+    function exchangeRateTimeout() {
+      return new Promise((resolve) => {
+        window.setTimeout(() => resolve(null), 8000);
+      });
+    }
+
+    if (window.ultraPaineExchangeRatePromise) {
+      Promise.race([window.ultraPaineExchangeRatePromise, exchangeRateTimeout()])
+        .then((result) => {
+          exchangeData = result;
+          exchangeStatus = result ? "ready" : "error";
+          renderOffer();
+        })
+        .catch(() => {
+          exchangeData = null;
+          exchangeStatus = "error";
+          renderOffer();
+        });
+    } else {
+      exchangeStatus = "error";
+    }
 
     renderOffer();
   </script>
