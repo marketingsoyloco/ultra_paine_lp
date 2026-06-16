@@ -1087,7 +1087,10 @@
 
               <aside class="commercial-card">
                 <small id="quoteLabel">Express sem aéreo - 5 dias / 4 noites</small>
-                <div class="price"><output id="quoteEntry">Carregando</output><span id="priceQualifier">a partir de</span></div>
+                <p class="rate-line" id="priceQualifier">Entrada de</p>
+                <div class="price"><output id="quoteEntry">Carregando</output></div>
+                <p class="usd-line" id="quoteInstallment">+ 10x s/ juros de --</p>
+                <p class="usd-line" id="quotePix">ou à vista no pix por -- com 8% de desconto.</p>
                 <p class="usd-line" id="quoteUsd">USD por pessoa</p>
                 <p class="rate-line"><strong>Cotação:</strong> <span id="usd-sell">carregando...</span></p>
                 <p class="rate-message" id="quoteNotice">cotação sujeita a conferência real no momento do fechamento</p>
@@ -1323,6 +1326,8 @@
     const label = document.querySelector("#quoteLabel");
     const entry = document.querySelector("#quoteEntry");
     const priceQualifier = document.querySelector("#priceQualifier");
+    const quoteInstallment = document.querySelector("#quoteInstallment");
+    const quotePix = document.querySelector("#quotePix");
     const quoteUsd = document.querySelector("#quoteUsd");
     const quoteNotice = document.querySelector("#quoteNotice");
     const usdSell = document.querySelector("#usd-sell");
@@ -1333,6 +1338,14 @@
 
     function formatUSD(value) {
       return `USD ${value.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+    }
+
+    function priceParts(total) {
+      const totalRounded = Math.ceil(total);
+      const entrada = Math.ceil(totalRounded * 0.14);
+      const installment = Math.ceil((totalRounded - entrada) / 10);
+      const pix = Math.ceil(totalRounded * 0.92);
+      return { total: totalRounded, entrada, installment, pix };
     }
 
     function selectedRateRows(offer) {
@@ -1395,22 +1408,30 @@
       label.textContent = offer.label;
 
       if (price && exchangeStatus === "ready" && exchangeData) {
-        entry.textContent = formatBRL(price.usd * exchangeData.rate);
-        priceQualifier.textContent = exactSelection ? "por pessoa" : "a partir de";
+        const parts = priceParts(price.usd * exchangeData.rate);
+        entry.textContent = formatBRL(parts.entrada);
+        priceQualifier.textContent = exactSelection ? "Entrada de" : "Entrada a partir de";
+        quoteInstallment.textContent = `+ 10x s/ juros de ${formatBRL(parts.installment)}`;
+        quotePix.textContent = `ou à vista no pix por ${formatBRL(parts.pix)} com 8% de desconto.`;
         quoteUsd.textContent = `${formatUSD(price.usd)} por pessoa`;
         usdSell.textContent = `${exchangeData.rate.toFixed(4)} (${exchangeData.date})`;
         quoteNotice.textContent = "cotação sujeita a conferência real no momento do fechamento";
         quoteNotice.classList.remove("error");
       } else if (price && exchangeStatus === "error") {
-        entry.textContent = formatUSD(price.usd);
-        priceQualifier.textContent = exactSelection ? "por pessoa" : "a partir de";
-        quoteUsd.textContent = "valor em dólar por pessoa";
+        const parts = priceParts(price.usd);
+        entry.textContent = formatUSD(parts.entrada);
+        priceQualifier.textContent = exactSelection ? "Entrada de" : "Entrada a partir de";
+        quoteInstallment.textContent = `+ 10x s/ juros de ${formatUSD(parts.installment)}`;
+        quotePix.textContent = `ou à vista no pix por ${formatUSD(parts.pix)} com 8% de desconto.`;
+        quoteUsd.textContent = `${formatUSD(price.usd)} por pessoa`;
         usdSell.textContent = "indisponível";
-        quoteNotice.textContent = "erro ao buscar cotação dólar atualizada";
+        quoteNotice.textContent = "erro ao carregar cotação em reais, solicite cotação real por WhatsApp";
         quoteNotice.classList.add("error");
       } else {
         entry.textContent = "Carregando";
-        priceQualifier.textContent = exactSelection ? "por pessoa" : "a partir de";
+        priceQualifier.textContent = exactSelection ? "Entrada de" : "Entrada a partir de";
+        quoteInstallment.textContent = "+ 10x s/ juros de --";
+        quotePix.textContent = "ou à vista no pix por -- com 8% de desconto.";
         quoteUsd.textContent = price ? `${formatUSD(price.usd)} por pessoa` : "USD por pessoa";
         usdSell.textContent = "carregando...";
         quoteNotice.textContent = "cotação sujeita a conferência real no momento do fechamento";
