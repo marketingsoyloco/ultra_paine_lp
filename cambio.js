@@ -27,9 +27,51 @@ function publishExchangeRate(result) {
 }
 
 async function fetchExchangeRate(url) {
-  const response = await fetch(url, { method: "GET" });
+  const response = await fetch(url, { method: "GET", credentials: "omit", cache: "no-store" });
   if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
   return response.json();
+}
+
+async function fetchBcbExchangeRate() {
+  let lookupDate = new Date();
+  let attempts = 0;
+
+  while (attempts < 10) {
+    const mm = String(lookupDate.getMonth() + 1).padStart(2, "0");
+    const dd = String(lookupDate.getDate()).padStart(2, "0");
+    const yyyy = lookupDate.getFullYear();
+    const formattedDate = `${mm}-${dd}-${yyyy}`;
+    const queryParams = `CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${formattedDate}'&$format=json`;
+
+    const data = await fetchExchangeRate(`${baseUrl}/${queryParams}`);
+    if (data && data.value && data.value.length > 0) {
+      const foundData = data.value[0];
+      return {
+        rate: Number((foundData.cotacaoVenda + 0.23).toFixed(4)),
+        date: formattedDate,
+        source: "BCB",
+        raw: foundData
+      };
+    }
+
+    lookupDate.setDate(lookupDate.getDate() - 1);
+    attempts += 1;
+  }
+
+  return null;
+}
+
+async function fetchAwesomeExchangeRate() {
+  const data = await fetchExchangeRate("https://economia.awesomeapi.com.br/json/last/USD-BRL");
+  const quote = data && data.USDBRL;
+  if (!quote || !quote.ask) return null;
+
+  return {
+    rate: Number((Number(quote.ask) + 0.23).toFixed(4)),
+    date: quote.create_date ? quote.create_date.slice(0, 10) : new Date().toISOString().slice(0, 10),
+    source: "AwesomeAPI",
+    raw: quote
+  };
 }
 
 async function displayLatestRate() {
@@ -39,44 +81,26 @@ async function displayLatestRate() {
     return cached;
   }
 
-  let lookupDate = new Date();
-  let foundData = null;
-  let finalFormattedDate = "";
-  let attempts = 0;
+  let result = null;
 
-  while (!foundData && attempts < 10) {
-    const mm = String(lookupDate.getMonth() + 1).padStart(2, "0");
-    const dd = String(lookupDate.getDate()).padStart(2, "0");
-    const yyyy = lookupDate.getFullYear();
-    finalFormattedDate = `${mm}-${dd}-${yyyy}`;
-
-    const queryParams = `CotacaoMoedaAberturaOuIntermediario(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda='USD'&@dataCotacao='${finalFormattedDate}'&$format=json`;
-
-    try {
-      const data = await fetchExchangeRate(`${baseUrl}/${queryParams}`);
-      if (data && data.value && data.value.length > 0) {
-        foundData = data.value[0];
-        break;
-      }
-    } catch (error) {
-      break;
-    }
-
-    lookupDate.setDate(lookupDate.getDate() - 1);
-    attempts += 1;
+  try {
+    result = await fetchBcbExchangeRate();
+  } catch (error) {
+    result = null;
   }
 
-  if (!foundData) {
+  if (!result) {
+    try {
+      result = await fetchAwesomeExchangeRate();
+    } catch (error) {
+      result = null;
+    }
+  }
+
+  if (!result) {
     publishExchangeRate(null);
     return null;
   }
-
-  const exchangeRate = Number((foundData.cotacaoVenda + 0.23).toFixed(4));
-  const result = {
-    rate: exchangeRate,
-    date: finalFormattedDate,
-    raw: foundData
-  };
 
   saveCachedExchangeRate(result);
   publishExchangeRate(result);

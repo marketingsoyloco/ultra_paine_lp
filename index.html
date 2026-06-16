@@ -409,7 +409,7 @@
     .control-panel {
       padding: 24px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 18px;
       align-items: stretch;
     }
@@ -426,6 +426,14 @@
       grid-column: 1 / -1;
       margin-bottom: 0;
       align-self: center;
+    }
+
+    .toggle-group.primary {
+      grid-column: span 3;
+    }
+
+    .toggle-group.filter {
+      grid-column: span 2;
     }
 
     .selection-summary {
@@ -931,9 +939,11 @@
       .proof:last-child { border-bottom: 0; }
       .section-head { display: grid; }
       .control-panel {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
         align-items: stretch;
       }
+      .toggle-group.primary { grid-column: span 3; }
+      .toggle-group.filter { grid-column: span 2; }
       .control-panel h3 { white-space: normal; }
       .selection-summary {
         padding-top: 16px;
@@ -965,6 +975,8 @@
       .fact-grid,
       .included-grid { grid-template-columns: 1fr; }
       .control-panel { grid-template-columns: 1fr; }
+      .toggle-group.primary,
+      .toggle-group.filter { grid-column: auto; }
       .poster-wall { grid-template-columns: 1fr; }
       th, td { padding: 14px 12px; }
       table { font-size: .9rem; }
@@ -978,6 +990,7 @@
     <header class="hero" id="topo">
       <nav class="nav" aria-label="Navegação principal">
         <a class="brand" href="https://maturoviagenseturismo.com.br/" aria-label="Maturo Viagens">
+          <img class="brand-logo" src="media/ultra-paine-logo.png" alt="Ultra Paine 2026">
           <img class="brand-logo" src="media/maturo_logo_rgb.png" alt="Maturo Viagens e Turismo">
         </a>
         <div class="nav-links">
@@ -1016,21 +1029,21 @@
         <div class="product-configurator">
           <aside class="control-panel" aria-label="Selecionar pacote">
             <h3>Configurar viagem</h3>
-            <div class="toggle-group">
+            <div class="toggle-group primary">
               <span class="toggle-label">Tipo de pacote</span>
               <div class="segmented" role="group" aria-label="Tipo de pacote">
                 <button type="button" data-option="type" data-value="express" aria-pressed="true">Express</button>
                 <button type="button" data-option="type" data-value="experience" aria-pressed="false">Experience</button>
               </div>
             </div>
-            <div class="toggle-group">
+            <div class="toggle-group primary">
               <span class="toggle-label">Passagem aérea</span>
               <div class="segmented" role="group" aria-label="Passagem aérea">
                 <button type="button" data-option="air" data-value="without" aria-pressed="true">Sem aéreo</button>
                 <button type="button" data-option="air" data-value="with" aria-pressed="false">Com aéreo</button>
               </div>
             </div>
-            <div class="toggle-group">
+            <div class="toggle-group filter">
               <span class="toggle-label">Categoria</span>
               <div class="segmented three" role="group" aria-label="Categoria de hotel">
                 <button type="button" data-option="category" data-value="turistica" aria-pressed="false">Turística</button>
@@ -1038,7 +1051,7 @@
                 <button type="button" data-option="category" data-value="primeira" aria-pressed="false">Primeira</button>
               </div>
             </div>
-            <div class="toggle-group">
+            <div class="toggle-group filter">
               <span class="toggle-label">Apartamento</span>
               <div class="segmented three" role="group" aria-label="Tipo de apartamento">
                 <button type="button" data-option="apartment" data-value="single" aria-pressed="false">Single</button>
@@ -1046,7 +1059,7 @@
                 <button type="button" data-option="apartment" data-value="triplo" aria-pressed="false">Triplo</button>
               </div>
             </div>
-            <div class="toggle-group">
+            <div class="toggle-group filter">
               <span class="toggle-label">Distância</span>
               <div class="segmented three" role="group" aria-label="Distância da prova">
                 <button type="button" data-option="distance" data-value="21K" aria-pressed="false">21K</button>
@@ -1138,7 +1151,7 @@
     </div>
   </footer>
 
-  <script src="cambio.js"></script>
+  <script src="cambio.js?v=2"></script>
   <script>
     const categories = {
       turistica: "Turística",
@@ -1414,7 +1427,7 @@
         quoteInstallment.textContent = `+ 10x s/ juros de ${formatBRL(parts.installment)}`;
         quotePix.textContent = `ou à vista no pix por ${formatBRL(parts.pix)} com 8% de desconto.`;
         quoteUsd.textContent = `${formatUSD(price.usd)} por pessoa`;
-        usdSell.textContent = `${exchangeData.rate.toFixed(4)} (${exchangeData.date})`;
+        usdSell.textContent = `${exchangeData.rate.toFixed(4)} (${exchangeData.date}${exchangeData.source ? `, ${exchangeData.source}` : ""})`;
         quoteNotice.textContent = "cotação sujeita a conferência real no momento do fechamento";
         quoteNotice.classList.remove("error");
       } else if (price && exchangeStatus === "error") {
