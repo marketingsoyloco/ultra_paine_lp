@@ -84,14 +84,15 @@
     .nav {
       position: absolute;
       top: 0;
-      left: 0;
-      right: 0;
+      left: 5em;
+      right: 5em;
       z-index: 5;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
       padding: 22px clamp(20px, 5vw, 72px);
+      margin-top: 50px;
     }
 
     .brand {
@@ -101,6 +102,12 @@
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0;
+    }
+
+    .brand-icon {
+      width: 90px;
+      height: auto;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.32));
     }
 
     .brand-logo {
@@ -124,10 +131,10 @@
       display: flex;
       align-items: center;
       gap: 22px;
-      font-size: .9rem;
-      color: rgba(255,255,255,.82);
+      font-size: 1.2rem;
+      color: rgba(255,255,255,.84);
     }
-
+    
     .cta {
       display: inline-flex;
       align-items: center;
@@ -151,8 +158,8 @@
 
     .hero-inner {
       width: min(1180px, 100%);
-      margin: 0 auto;
-      padding: 96px 0 58px;
+      margin:  8em auto 6em;
+      padding: 96px 0 20px;
     }
 
     .eyebrow {
@@ -175,10 +182,9 @@
     }
 
     h1 {
-      max-width: 780px;
       margin: 0;
       font-size: clamp(3.4rem, 8vw, 8.4rem);
-      line-height: .84;
+      line-height: .99;
       letter-spacing: 0;
       text-transform: uppercase;
       text-wrap: balance;
@@ -224,9 +230,16 @@
       box-shadow: var(--shadow);
       border-radius: var(--radius);
       overflow: hidden;
+      align-items: center;
+      justify-content: center; /* Horizontal alignment */
+
     }
 
     .proof {
+      display: grid;
+      align-content: center;
+      justify-content: center;
+      text-align: left;
       padding: 22px;
       border-right: 1px solid var(--line);
     }
@@ -235,8 +248,12 @@
 
     .proof b {
       display: block;
-      font-size: clamp(1.35rem, 2.5vw, 2.15rem);
+      font-size: clamp(1.35rem, 2.5vw, 2rem);
       line-height: 1;
+    }
+
+    .proof.compact b {
+      font-size: clamp(1.16rem, 2vw, 1.58rem);
     }
 
     .proof span {
@@ -360,6 +377,122 @@
       margin: 0;
       color: rgba(255,255,255,.8);
       max-width: 520px;
+    }
+
+    .distance-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .distance-card {
+      position: relative;
+      min-height: 380px;
+      display: grid;
+      align-content: space-between;
+      gap: 24px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,.11), rgba(255,255,255,.035)),
+        rgba(8, 18, 23, .9);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .distance-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: var(--distance-image) center / cover no-repeat;
+      opacity: .38;
+      filter: saturate(1.08);
+      transition: transform .45s ease;
+    }
+
+    .distance-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(0deg, rgba(5,11,14,.96) 0%, rgba(5,11,14,.78) 48%, rgba(5,11,14,.2) 100%),
+        linear-gradient(120deg, rgba(5,11,14,.72), transparent 72%);
+    }
+
+    .distance-card:hover::before { transform: scale(1.045); }
+
+    .distance-kicker {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 28px;
+      align-items: center;
+      padding: 0 10px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: var(--ice);
+      font-size: .72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .distance-card h3 {
+      margin: 18px 0 12px;
+      color: var(--distance-accent, var(--orange));
+      font-size: clamp(4.2rem, 8vw, 7.2rem);
+      line-height: .82;
+      text-transform: uppercase;
+    }
+
+    .distance-card p {
+      margin: 0;
+      max-width: 360px;
+      color: rgba(255,255,255,.82);
+      font-weight: 600;
+    }
+
+    .distance-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .distance-meta span {
+      min-height: 42px;
+      display: grid;
+      place-items: center;
+      padding: 8px 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.07);
+      color: rgba(255,255,255,.86);
+      font-size: .78rem;
+      font-weight: 850;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .distance-select {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      background: var(--distance-accent, var(--orange));
+      color: #071015;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .18s ease, filter .18s ease;
+    }
+
+    .distance-select:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
     }
 
     .feature-list {
@@ -927,6 +1060,7 @@
       .nav-links { display: none; }
       .proof-strip,
       .package-grid,
+      .distance-grid,
       .product-configurator,
       .product-body,
       .deal-panel,
@@ -951,6 +1085,7 @@
       }
       .poster-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .package { min-height: 470px; }
+      .distance-card { min-height: 340px; }
       .control-panel { position: static; }
     }
 
@@ -966,6 +1101,7 @@
       .proof-strip { width: calc(100% - 32px); }
       section { padding-left: 16px; padding-right: 16px; }
       .package,
+      .distance-card,
       .control-panel,
       .product-body,
       .selector,
@@ -990,12 +1126,13 @@
     <header class="hero" id="topo">
       <nav class="nav" aria-label="Navegação principal">
         <a class="brand" href="https://maturoviagenseturismo.com.br/" aria-label="Maturo Viagens">
-          <img class="brand-logo" src="media/ultra-paine-logo.png" alt="Ultra Paine 2026">
+          <img class="brand-icon" src="media/ultra-paine-logo.png" alt="Ultra Paine 2026">
           <img class="brand-logo" src="media/maturo_logo_rgb.png" alt="Maturo Viagens e Turismo">
         </a>
         <div class="nav-links">
+          <a href="#distancias">Distâncias</a>
           <a href="#pacotes">Pacotes</a>
-          <a href="#roteiro">Roteiro</a>
+          <a id="roteiro-link" href="#roteiro">Roteiro</a>
           <a href="#contato">Contato</a>
         </div>
         <a class="cta" href="https://wa.me/5511919523477?text=Quero%20saber%20mais%20sobre%20os%20pacotes%20Ultra%20Paine%202026" target="_blank" rel="noreferrer">Falar no WhatsApp</a>
@@ -1014,10 +1151,51 @@
 
     <div class="proof-strip" aria-label="Resumo da viagem">
       <div class="proof"><b>26/09</b><span>Dia da prova</span></div>
-      <div class="proof"><b>21K 35K 50K</b><span>Distâncias disponíveis</span></div>
-      <div class="proof"><b>5D/4N ou 7D/6N</b><span>Express e Experience</span></div>
+      <div class="proof"><b>21K, 35K, 50K</b><span>Distâncias disponíveis</span></div>
+      <div class="proof compact"><b>5D/4N ou 7D/6N</b><span>Express e Experience</span></div>
       <div class="proof"><b>GRU e GIG</b><span>Opções com aéreo</span></div>
     </div>
+
+    <section id="distancias">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Distâncias</h2>
+          <p>Três formas de viver a Ultra Paine, todas com inscrição inclusa nos pacotes e suporte local no dia da prova.</p>
+        </div>
+
+        <div class="distance-grid" aria-label="Opções de distância">
+          <article class="distance-card" style="--distance-accent: var(--yellow); --distance-image: url('media/express_bg.png');">
+            <div>
+              <span class="distance-kicker">Meia maratona trail</span>
+              <h3>21K</h3>
+              <p>Uma entrada intensa na Patagônia, com percurso cênico para quem quer correr forte e ainda preservar energia para a viagem.</p>
+ 
+            </div>
+            <button class="distance-select" type="button" data-distance-jump="21K">Selecionar</button>
+          </article>
+
+          <article class="distance-card" style="--distance-accent: var(--orange); --distance-image: url('media/bg_image.png');">
+            <div>
+              <span class="distance-kicker">Desafio intermediário</span>
+              <h3>35K</h3>
+              <p>O equilíbrio entre exigência e contemplação, para corredores que querem mais tempo no parque sem chegar ao volume do ultra.</p>
+
+            </div>
+            <button class="distance-select" type="button" data-distance-jump="35K">Selecionar</button>
+          </article>
+
+          <article class="distance-card" style="--distance-accent: var(--blue); --distance-image: url('media/experience_bg.png');">
+            <div>
+              <span class="distance-kicker">Ultra experiência</span>
+              <h3>50K</h3>
+              <p>A opção mais completa para atletas que buscam um desafio longo, técnico e memorável no cenário de Torres del Paine.</p>
+
+            </div>
+            <button class="distance-select" type="button" data-distance-jump="50K">Selecionar</button>
+          </article>
+        </div>
+      </div>
+    </section>
 
     <section id="pacotes">
       <div class="wrap">
@@ -1105,7 +1283,7 @@
                 <p class="usd-line" id="quoteInstallment">+ 10x s/ juros de --</p>
                 <p class="usd-line" id="quotePix">ou à vista no pix por -- com 8% de desconto.</p>
                 <p class="usd-line" id="quoteUsd">USD por pessoa</p>
-                <p class="rate-line"><strong>Cotação:</strong> <span id="usd-sell">carregando...</span></p>
+                <p class="rate-line" style="display: none;"><strong>Cotação:</strong> <span id="usd-sell">carregando...</span></p>
                 <p class="rate-message" id="quoteNotice">cotação sujeita a conferência real no momento do fechamento</p>
                 <div class="commercial-meta">
                   <span><b>Aéreo:</b> <span id="airStatus">não incluso</span></span>
@@ -1170,6 +1348,7 @@
       "35K": "35K",
       "50K": "50K"
     };
+
 
     const landRates = {
       express: [
@@ -1463,6 +1642,14 @@
       });
     });
 
+    document.querySelectorAll("[data-distance-jump]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.distance = button.dataset.distanceJump;
+        renderOffer();
+        document.getElementById("pacotes")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
     function exchangeRateTimeout() {
       return new Promise((resolve) => {
         window.setTimeout(() => resolve(null), 8000);
@@ -1486,6 +1673,14 @@
     }
 
     renderOffer();
+    const roteiroLink = document.getElementById('roteiro-link');
+    const itineraryDetails = document.querySelector('.itinerary');
+
+    if (roteiroLink && itineraryDetails) {
+      roteiroLink.addEventListener('click', () => {
+        itineraryDetails.open = true;
+      });
+    }
   </script>
 </body>
 </html>
