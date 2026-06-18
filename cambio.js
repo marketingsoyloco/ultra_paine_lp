@@ -1,3 +1,8 @@
+/*
+Live exchange-rate lookup disabled. The site currently uses a fixed commercial
+rate so pricing remains stable and does not depend on BCB/AwesomeAPI CORS or
+availability.
+
 const baseUrl = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata";
 const cacheKey = "ultraPaineExchangeRate";
 const cacheMaxAgeMs = 12 * 60 * 60 * 1000;
@@ -17,7 +22,7 @@ function saveCachedExchangeRate(result) {
   try {
     localStorage.setItem(cacheKey, JSON.stringify({ ...result, savedAt: Date.now() }));
   } catch (error) {
-    // Ignore storage failures; the page can still use the live result.
+    Ignore storage failures; the page can still use the live result.
   }
 }
 
@@ -108,3 +113,13 @@ async function displayLatestRate() {
 }
 
 window.ultraPaineExchangeRatePromise = displayLatestRate();
+*/
+
+const fixedExchangeRate = {
+  rate: 5.40,
+  date: "fixa",
+  source: "R$ 5,40/USD"
+};
+
+window.ultraPaineExchangeRate = fixedExchangeRate;
+window.ultraPaineExchangeRatePromise = Promise.resolve(fixedExchangeRate);

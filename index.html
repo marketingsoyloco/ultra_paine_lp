@@ -399,7 +399,8 @@
       align-content: space-between;
       gap: 24px;
       padding: 28px;
-      border: 1px solid var(--line);
+      border: 0;
+      border-top: 6px solid var(--distance-accent, var(--orange));
       border-radius: var(--radius);
       overflow: hidden;
       background:
@@ -484,24 +485,6 @@
       text-transform: uppercase;
     }
 
-    .distance-select {
-      width: 100%;
-      min-height: 44px;
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 999px;
-      background: var(--distance-accent, var(--orange));
-      color: #071015;
-      font: inherit;
-      font-weight: 900;
-      cursor: pointer;
-      transition: transform .18s ease, filter .18s ease;
-    }
-
-    .distance-select:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.06);
-    }
-
     .feature-list {
       display: grid;
       gap: 10px;
@@ -574,6 +557,14 @@
 
     .toggle-group.filter {
       grid-column: span 2;
+    }
+
+    .toggle-group.origin {
+      grid-column: 1 / -1;
+    }
+
+    .toggle-group[hidden] {
+      display: none;
     }
 
     .selection-summary {
@@ -1254,9 +1245,7 @@
               <span class="distance-kicker">Meia maratona trail</span>
               <h3>21K</h3>
               <p>Uma entrada intensa na Patagônia, com percurso cênico para quem quer correr forte e ainda preservar energia para a viagem.</p>
- 
             </div>
-            <button class="distance-select" type="button" data-distance-jump="21K">Selecionar</button>
           </article>
 
           <article class="distance-card" style="--distance-accent: var(--orange); --distance-image: url('media/bg_image.png');">
@@ -1264,9 +1253,7 @@
               <span class="distance-kicker">Desafio intermediário</span>
               <h3>35K</h3>
               <p>O equilíbrio entre exigência e contemplação, para corredores que querem mais tempo no parque sem chegar ao volume do ultra.</p>
-
             </div>
-            <button class="distance-select" type="button" data-distance-jump="35K">Selecionar</button>
           </article>
 
           <article class="distance-card" style="--distance-accent: var(--blue); --distance-image: url('media/experience_bg.png');">
@@ -1274,9 +1261,7 @@
               <span class="distance-kicker">Ultra experiência</span>
               <h3>50K</h3>
               <p>A opção mais completa para atletas que buscam um desafio longo, técnico e memorável no cenário de Torres del Paine.</p>
-
             </div>
-            <button class="distance-select" type="button" data-distance-jump="50K">Selecionar</button>
           </article>
         </div>
       </div>
@@ -1304,6 +1289,13 @@
               <div class="segmented" role="group" aria-label="Passagem aérea">
                 <button type="button" data-option="air" data-value="without" aria-pressed="true">Sem aéreo</button>
                 <button type="button" data-option="air" data-value="with" aria-pressed="false">Com aéreo</button>
+              </div>
+            </div>
+            <div class="toggle-group origin" id="originFilter" hidden>
+              <span class="toggle-label">Origem do voo</span>
+              <div class="segmented" role="group" aria-label="Origem do voo">
+                <button type="button" data-option="origin" data-value="gru" aria-pressed="false">São Paulo / GRU</button>
+                <button type="button" data-option="origin" data-value="gig" aria-pressed="false">Rio de Janeiro / GIG</button>
               </div>
             </div>
             <div class="toggle-group filter">
@@ -1369,7 +1361,7 @@
                 <p class="usd-line" id="quotePix">ou à vista no pix por -- com 8% de desconto.</p>
                 <p class="usd-line" id="quoteUsd">USD por pessoa</p>
                 <p class="rate-line" style="display: none;"><strong>Cotação:</strong> <span id="usd-sell">carregando...</span></p>
-                <p class="rate-message" id="quoteNotice">cotação sujeita a conferência real no momento do fechamento</p>
+                <p class="rate-message" id="quoteNotice"">*Preço em reais estimado. Cotação final será confirmada no momento da reserva.</p>
                 <div class="commercial-meta">
                   <span><b>Aéreo:</b> <span id="airStatus">não incluso</span></span>
                   <span><b>Inscrição:</b> <span id="distanceStatus">21K, 35K ou 50K inclusa</span></span>
@@ -1414,7 +1406,7 @@
     </div>
   </footer>
 
-  <script src="cambio.js?v=2"></script>
+  <script src="cambio.js?v=3"></script>
   <script>
     const categories = {
       turistica: "Turística",
@@ -1432,6 +1424,16 @@
       "21K": "21K",
       "35K": "35K",
       "50K": "50K"
+    };
+
+    const origins = {
+      gru: "São Paulo / GRU",
+      gig: "Rio de Janeiro / GIG"
+    };
+
+    const originSurcharges = {
+      gru: 0,
+      gig: 100
     };
 
 
@@ -1583,7 +1585,7 @@
       }
     };
 
-    const state = { type: "express", air: "without", category: null, apartment: null, distance: null };
+    const state = { type: "express", air: "without", origin: null, category: null, apartment: null, distance: null };
     let exchangeStatus = "loading";
     let exchangeData = null;
 
@@ -1597,6 +1599,7 @@
     const itineraryList = document.querySelector("#itineraryList");
     const selectionTitle = document.querySelector("#selectionTitle");
     const selectionText = document.querySelector("#selectionText");
+    const originFilter = document.querySelector("#originFilter");
     const airStatus = document.querySelector("#airStatus");
     const distanceStatus = document.querySelector("#distanceStatus");
     const hotelStatus = document.querySelector("#hotelStatus");
@@ -1635,12 +1638,16 @@
     function currentPrice(offer) {
       const rows = selectedRateRows(offer);
       const distanceKeys = state.distance ? [state.distance] : Object.keys(distances);
+      const originSurcharge = state.air === "with" && state.origin
+        ? originSurcharges[state.origin]
+        : 0;
       const candidates = rows.flatMap((row) =>
         distanceKeys.map((distance) => ({
-          usd: row[distance],
+          usd: row[distance] + originSurcharge,
           category: row.category,
           apartment: row.apartment,
-          distance
+          distance,
+          origin: state.air === "with" ? state.origin : null
         }))
       );
 
@@ -1648,7 +1655,8 @@
     }
 
     function hasFullPriceSelection() {
-      return Boolean(state.category && state.apartment && state.distance);
+      const hasRequiredOrigin = state.air === "without" || Boolean(state.origin);
+      return Boolean(state.category && state.apartment && state.distance && hasRequiredOrigin);
     }
 
     function renderOffer() {
@@ -1656,11 +1664,13 @@
       const offer = product[state.air];
       const price = currentPrice(offer);
       const exactSelection = hasFullPriceSelection();
+      originFilter.hidden = state.air !== "with";
       productDetail.style.setProperty("--accent", product.accent);
       productDetail.style.setProperty("--image", `url('${offer.image}')`);
       const dynamicTags = [
         product.shortName,
         offer.airTag,
+        state.air === "with" && state.origin ? origins[state.origin] : null,
         product.duration,
         state.category ? categories[state.category] : null,
         state.apartment ? apartments[state.apartment] : null,
@@ -1675,11 +1685,15 @@
       itineraryList.innerHTML = product.itinerary
         .map(([date, title, text]) => `<li><time>${date}</time><span><b>${title}</b>${text}</span></li>`)
         .join("");
-      selectionTitle.textContent = `${product.shortName} ${offer.airTag.toLowerCase()}`;
+      selectionTitle.textContent = `${product.shortName} ${offer.airTag.toLowerCase()}${state.air === "with" && state.origin ? ` - ${origins[state.origin]}` : ""}`;
       selectionText.textContent = exactSelection
-        ? `${categories[state.category]} - ${apartments[state.apartment]} - ${state.distance}, de ${product.period.replace("/2026", "")}.`
-        : `${product.duration}, de ${product.period.replace("/2026", "")}. Escolha categoria, apartamento e distância para ver o valor exato.`;
-      airStatus.textContent = offer.airStatus;
+        ? `${categories[state.category]} - ${apartments[state.apartment]} - ${state.distance}${state.air === "with" ? ` - saída de ${origins[state.origin]}` : ""}, de ${product.period.replace("/2026", "")}.`
+        : `${product.duration}, de ${product.period.replace("/2026", "")}. Escolha ${state.air === "with" ? "origem, " : ""}categoria, apartamento e distância para ver o valor exato.`;
+      airStatus.textContent = state.air === "with"
+        ? state.origin
+          ? `inclusa, com saída de ${origins[state.origin]}`
+          : "inclusa, com saída de São Paulo/GRU ou Rio/GIG"
+        : offer.airStatus;
       distanceStatus.textContent = state.distance ? `${state.distance} inclusa` : "21K, 35K ou 50K inclusa";
       hotelStatus.textContent = state.category ? categories[state.category] : "Turística, Turística Superior ou Primeira";
       label.textContent = offer.label;
@@ -1688,11 +1702,11 @@
         const parts = priceParts(price.usd * exchangeData.rate);
         entry.textContent = formatBRL(parts.entrada);
         priceQualifier.textContent = exactSelection ? "Entrada de" : "Entrada a partir de";
-        quoteInstallment.textContent = `+ 10x s/ juros de ${formatBRL(parts.installment)}`;
-        quotePix.textContent = `ou à vista no pix por ${formatBRL(parts.pix)} com 8% de desconto.`;
-        quoteUsd.textContent = `${formatUSD(price.usd)} por pessoa`;
-        usdSell.textContent = `${exchangeData.rate.toFixed(4)} (${exchangeData.date}${exchangeData.source ? `, ${exchangeData.source}` : ""})`;
-        quoteNotice.textContent = "cotação sujeita a conferência real no momento do fechamento";
+        quoteInstallment.innerHTML = `+ <strong style="color: white;">10x</strong> s/ juros de <strong style="color: white;">${formatBRL(parts.installment)}</strong>`;
+        quotePix.innerHTML = `ou <strong style="color: white;">à vista no pix</strong> por <strong style="color: white;">${formatBRL(parts.pix)}</strong> com 8% de desconto.`;
+        quoteUsd.innerHTML = `<strong style="color: white;">${formatUSD(price.usd)}</strong> por pessoa`;
+        usdSell.textContent = "R$ 5,40/USD";
+        quoteNotice.textContent = "*Preço em reais estimado. Cotação final será confirmada no momento da reserva.";
         quoteNotice.classList.remove("error");
       } else if (price && exchangeStatus === "error") {
         const parts = priceParts(price.usd);
@@ -1711,7 +1725,7 @@
         quotePix.textContent = "ou à vista no pix por -- com 8% de desconto.";
         quoteUsd.textContent = price ? `${formatUSD(price.usd)} por pessoa` : "USD por pessoa";
         usdSell.textContent = "carregando...";
-        quoteNotice.textContent = "cotação sujeita a conferência real no momento do fechamento";
+        quoteNotice.textContent = "erro";
         quoteNotice.classList.remove("error");
       }
 
@@ -1722,16 +1736,11 @@
 
     document.querySelectorAll("[data-option]").forEach((button) => {
       button.addEventListener("click", () => {
+        if (button.dataset.option === "air") {
+          state.origin = null;
+        }
         state[button.dataset.option] = button.dataset.value;
         renderOffer();
-      });
-    });
-
-    document.querySelectorAll("[data-distance-jump]").forEach((button) => {
-      button.addEventListener("click", () => {
-        state.distance = button.dataset.distanceJump;
-        renderOffer();
-        document.getElementById("pacotes")?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
 
