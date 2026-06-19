@@ -559,10 +559,6 @@
       grid-column: span 2;
     }
 
-    .toggle-group.origin {
-      grid-column: 1 / -1;
-    }
-
     .toggle-group[hidden] {
       display: none;
     }
@@ -640,7 +636,7 @@
 
     .product-body {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(300px, .42fr);
+      grid-template-columns: minmax(0, 1fr) minmax(360px, .72fr);
       gap: 22px;
       padding: 28px;
     }
@@ -721,6 +717,12 @@
       text-transform: uppercase;
     }
 
+    #quoteLabel {
+      color: var(--accent, var(--orange));
+      font-size: 1.2rem;
+      line-height: 1.25;
+    }
+
     .commercial-card .price {
       margin-top: 8px;
       font-size: clamp(2.2rem, 15cqw, 4rem);
@@ -756,6 +758,18 @@
     }
 
     .commercial-meta b { color: var(--ink); }
+
+    .purchase-cta {
+      width: 100%;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .purchase-cta .whatsapp-icon {
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
 
     details.itinerary {
       grid-column: 1 / -1;
@@ -1222,7 +1236,7 @@
         <p class="hero-copy">Pacotes completos para a Maratona Ultra Paine em Torres del Paine, com inscrição inclusa, suporte local, hospedagem, transfers e opções com ou sem passagem aérea.</p>
         <div class="hero-actions">
           <a class="cta" href="#pacotes">Ver pacotes e valores</a>
-          <a class="ghost" href="media/PACOTES MARATONA ULTRA PAINE.pdf" target="_blank" rel="noreferrer">Abrir proposta completa</a>
+          <a class="ghost" href="#distancias">Explorar a prova</a>
         </div>
       </div>
     </header>
@@ -1293,18 +1307,11 @@
                 <button type="button" data-option="air" data-value="with" aria-pressed="false">Com aéreo</button>
               </div>
             </div>
-            <div class="toggle-group origin" id="originFilter" hidden>
-              <span class="toggle-label">Origem do voo</span>
-              <div class="segmented" role="group" aria-label="Origem do voo">
-                <button type="button" data-option="origin" data-value="gru" aria-pressed="false">São Paulo / GRU</button>
-                <button type="button" data-option="origin" data-value="gig" aria-pressed="false">Rio de Janeiro / GIG</button>
-              </div>
-            </div>
             <div class="toggle-group filter">
               <span class="toggle-label">Categoria</span>
               <div class="segmented three" role="group" aria-label="Categoria de hotel">
                 <button type="button" data-option="category" data-value="turistica" aria-pressed="false">Turística</button>
-                <button type="button" data-option="category" data-value="turisticaSuperior" aria-pressed="false">Superior</button>
+                <button type="button" data-option="category" data-value="turisticaSuperior" aria-pressed="true">Superior</button>
                 <button type="button" data-option="category" data-value="primeira" aria-pressed="false">Primeira</button>
               </div>
             </div>
@@ -1312,14 +1319,14 @@
               <span class="toggle-label">Apartamento</span>
               <div class="segmented three" role="group" aria-label="Tipo de apartamento">
                 <button type="button" data-option="apartment" data-value="single" aria-pressed="false">Single</button>
-                <button type="button" data-option="apartment" data-value="duplo" aria-pressed="false">Duplo</button>
+                <button type="button" data-option="apartment" data-value="duplo" aria-pressed="true">Duplo</button>
                 <button type="button" data-option="apartment" data-value="triplo" aria-pressed="false">Triplo</button>
               </div>
             </div>
             <div class="toggle-group filter">
               <span class="toggle-label">Distância</span>
               <div class="segmented three" role="group" aria-label="Distância da prova">
-                <button type="button" data-option="distance" data-value="21K" aria-pressed="false">21K</button>
+                <button type="button" data-option="distance" data-value="21K" aria-pressed="true">21K</button>
                 <button type="button" data-option="distance" data-value="35K" aria-pressed="false">35K</button>
                 <button type="button" data-option="distance" data-value="50K" aria-pressed="false">50K</button>
               </div>
@@ -1361,15 +1368,24 @@
                 <div class="price"><output id="quoteEntry">Carregando</output></div>
                 <p class="usd-line" id="quoteInstallment">+ 10x s/ juros de --</p>
                 <p class="usd-line" id="quotePix">ou à vista no pix por -- com 8% de desconto.</p>
+                <p class="usd-line" id="quoteTotal">Total em reais: --</p>
                 <p class="usd-line" id="quoteUsd">USD por pessoa</p>
                 <p class="rate-line" style="display: none;"><strong>Cotação:</strong> <span id="usd-sell">carregando...</span></p>
                 <p class="rate-message" id="quoteNotice"">*Preço em reais estimado. Cotação final será confirmada no momento da reserva.</p>
                 <div class="commercial-meta">
                   <span><b>Aéreo:</b> <span id="airStatus">não incluso</span></span>
-                  <span><b>Inscrição:</b> <span id="distanceStatus">21K, 35K ou 50K inclusa</span></span>
+                  <span><b>Inscrição:</b> inclusa</span>
+                  <span><b>Distância:</b> <span id="distanceStatus">21K</span></span>
+                  <span><b>Apartamento:</b> <span id="apartmentStatus">Duplo</span></span>
                   <span><b>Hotéis:</b> <span id="hotelStatus">Turística, Turística Superior ou Primeira</span></span>
                   <span><b>Grupo:</b> 10 pagantes + 1 FREE terrestre</span>
                 </div>
+                <a class="cta purchase-cta" id="purchaseWhatsapp" href="https://wa.me/5511919523477" target="_blank" rel="noreferrer" aria-label="Comprar este pacote pelo WhatsApp">
+                  <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                    <path d="M16.01 3.2c-7.06 0-12.8 5.63-12.8 12.56 0 2.39.69 4.69 1.99 6.68L3.1 28.8l6.62-2.03a13.03 13.03 0 0 0 6.29 1.6c7.06 0 12.8-5.63 12.8-12.56S23.07 3.2 16.01 3.2Zm0 22.99c-2.05 0-4.04-.58-5.76-1.68l-.41-.26-3.87 1.19 1.24-3.75-.27-.43a10.18 10.18 0 0 1-1.57-5.5c0-5.72 4.78-10.38 10.65-10.38 5.86 0 10.64 4.66 10.64 10.38S21.87 26.19 16.01 26.19Zm5.84-7.78c-.32-.16-1.89-.92-2.18-1.02-.29-.11-.5-.16-.72.16-.21.31-.82 1.02-1.01 1.23-.19.21-.37.24-.69.08-.32-.16-1.35-.49-2.57-1.56-.95-.83-1.59-1.86-1.78-2.18-.19-.31-.02-.48.14-.64.15-.14.32-.37.48-.55.16-.18.21-.31.32-.52.11-.21.05-.39-.03-.55-.08-.16-.72-1.7-.98-2.33-.26-.61-.52-.53-.72-.54l-.61-.01c-.21 0-.55.08-.84.39-.29.31-1.1 1.05-1.1 2.57 0 1.52 1.13 2.98 1.29 3.19.16.21 2.23 3.34 5.4 4.68.75.32 1.34.51 1.8.65.76.24 1.45.2 1.99.12.61-.09 1.89-.76 2.16-1.49.27-.73.27-1.36.19-1.49-.08-.13-.29-.21-.61-.37Z"/>
+                  </svg>
+                  <span>Comprar este pacote</span>
+                </a>
               </aside>
 
               <details class="itinerary">
@@ -1427,17 +1443,6 @@
       "35K": "35K",
       "50K": "50K"
     };
-
-    const origins = {
-      gru: "São Paulo / GRU",
-      gig: "Rio de Janeiro / GIG"
-    };
-
-    const originSurcharges = {
-      gru: 0,
-      gig: 100
-    };
-
 
     const landRates = {
       express: [
@@ -1587,7 +1592,13 @@
       }
     };
 
-    const state = { type: "express", air: "without", origin: null, category: null, apartment: null, distance: null };
+    const state = {
+      type: "express",
+      air: "without",
+      category: "turisticaSuperior",
+      apartment: "duplo",
+      distance: "21K"
+    };
     let exchangeStatus = "loading";
     let exchangeData = null;
 
@@ -1601,18 +1612,20 @@
     const itineraryList = document.querySelector("#itineraryList");
     const selectionTitle = document.querySelector("#selectionTitle");
     const selectionText = document.querySelector("#selectionText");
-    const originFilter = document.querySelector("#originFilter");
     const airStatus = document.querySelector("#airStatus");
     const distanceStatus = document.querySelector("#distanceStatus");
+    const apartmentStatus = document.querySelector("#apartmentStatus");
     const hotelStatus = document.querySelector("#hotelStatus");
     const label = document.querySelector("#quoteLabel");
     const entry = document.querySelector("#quoteEntry");
     const priceQualifier = document.querySelector("#priceQualifier");
     const quoteInstallment = document.querySelector("#quoteInstallment");
     const quotePix = document.querySelector("#quotePix");
+    const quoteTotal = document.querySelector("#quoteTotal");
     const quoteUsd = document.querySelector("#quoteUsd");
     const quoteNotice = document.querySelector("#quoteNotice");
     const usdSell = document.querySelector("#usd-sell");
+    const purchaseWhatsapp = document.querySelector("#purchaseWhatsapp");
 
     function formatBRL(value) {
       return Math.ceil(value).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -1640,16 +1653,12 @@
     function currentPrice(offer) {
       const rows = selectedRateRows(offer);
       const distanceKeys = state.distance ? [state.distance] : Object.keys(distances);
-      const originSurcharge = state.air === "with" && state.origin
-        ? originSurcharges[state.origin]
-        : 0;
       const candidates = rows.flatMap((row) =>
         distanceKeys.map((distance) => ({
-          usd: row[distance] + originSurcharge,
+          usd: row[distance],
           category: row.category,
           apartment: row.apartment,
-          distance,
-          origin: state.air === "with" ? state.origin : null
+          distance
         }))
       );
 
@@ -1657,8 +1666,22 @@
     }
 
     function hasFullPriceSelection() {
-      const hasRequiredOrigin = state.air === "without" || Boolean(state.origin);
-      return Boolean(state.category && state.apartment && state.distance && hasRequiredOrigin);
+      return Boolean(state.category && state.apartment && state.distance);
+    }
+
+    function whatsappMessage(product) {
+      const airfare = state.air === "with"
+        ? "Com aéreo - saída de São Paulo / GRU"
+        : "Sem aéreo";
+      return [
+        "Olá! Quero comprar este pacote Ultra Paine 2026:",
+        "",
+        `Pacote: ${product.shortName} - ${product.duration}`,
+        `Aéreo: ${airfare}`,
+        `Categoria: ${categories[state.category]}`,
+        `Apartamento: ${apartments[state.apartment]}`,
+        `Distância: ${state.distance}`
+      ].join("\n");
     }
 
     function renderOffer() {
@@ -1666,13 +1689,12 @@
       const offer = product[state.air];
       const price = currentPrice(offer);
       const exactSelection = hasFullPriceSelection();
-      originFilter.hidden = state.air !== "with";
       productDetail.style.setProperty("--accent", product.accent);
       productDetail.style.setProperty("--image", `url('${offer.image}')`);
       const dynamicTags = [
         product.shortName,
         offer.airTag,
-        state.air === "with" && state.origin ? origins[state.origin] : null,
+        state.air === "with" ? "São Paulo / GRU" : null,
         product.duration,
         state.category ? categories[state.category] : null,
         state.apartment ? apartments[state.apartment] : null,
@@ -1687,25 +1709,26 @@
       itineraryList.innerHTML = product.itinerary
         .map(([date, title, text]) => `<li><time>${date}</time><span><b>${title}</b>${text}</span></li>`)
         .join("");
-      selectionTitle.textContent = `${product.shortName} ${offer.airTag.toLowerCase()}${state.air === "with" && state.origin ? ` - ${origins[state.origin]}` : ""}`;
+      selectionTitle.textContent = `${product.shortName} ${offer.airTag.toLowerCase()}${state.air === "with" ? " - São Paulo / GRU" : ""}`;
       selectionText.textContent = exactSelection
-        ? `${categories[state.category]} - ${apartments[state.apartment]} - ${state.distance}${state.air === "with" ? ` - saída de ${origins[state.origin]}` : ""}, de ${product.period.replace("/2026", "")}.`
-        : `${product.duration}, de ${product.period.replace("/2026", "")}. Escolha ${state.air === "with" ? "origem, " : ""}categoria, apartamento e distância para ver o valor exato.`;
+        ? `${categories[state.category]} - ${apartments[state.apartment]} - ${state.distance}${state.air === "with" ? " - saída de São Paulo / GRU" : ""}, de ${product.period.replace("/2026", "")}.`
+        : `${product.duration}, de ${product.period.replace("/2026", "")}. Escolha categoria, apartamento e distância para ver o valor exato.`;
       airStatus.textContent = state.air === "with"
-        ? state.origin
-          ? `inclusa, com saída de ${origins[state.origin]}`
-          : "inclusa, com saída de São Paulo/GRU ou Rio/GIG"
+        ? "inclusa, com saída de São Paulo / GRU"
         : offer.airStatus;
-      distanceStatus.textContent = state.distance ? `${state.distance} inclusa` : "21K, 35K ou 50K inclusa";
+      distanceStatus.textContent = state.distance;
+      apartmentStatus.textContent = apartments[state.apartment];
       hotelStatus.textContent = state.category ? categories[state.category] : "Turística, Turística Superior ou Primeira";
       label.textContent = offer.label;
+      purchaseWhatsapp.href = `https://wa.me/5511919523477?text=${encodeURIComponent(whatsappMessage(product))}`;
 
       if (price && exchangeStatus === "ready" && exchangeData) {
         const parts = priceParts(price.usd * exchangeData.rate);
         entry.textContent = formatBRL(parts.entrada);
-        priceQualifier.textContent = exactSelection ? "Entrada de" : "Entrada a partir de";
+        priceQualifier.textContent = "Entrada de";
         quoteInstallment.innerHTML = `+ <strong style="color: white;">10x</strong> s/ juros de <strong style="color: white;">${formatBRL(parts.installment)}</strong>`;
         quotePix.innerHTML = `ou <strong style="color: white;">à vista no pix</strong> por <strong style="color: white;">${formatBRL(parts.pix)}</strong> com 8% de desconto.`;
+        quoteTotal.innerHTML = `Total em reais: <strong style="color: white;">${formatBRL(parts.total)}</strong>`;
         quoteUsd.innerHTML = `<strong style="color: white;">${formatUSD(price.usd)}</strong> por pessoa`;
         usdSell.textContent = "R$ 5,40/USD";
         quoteNotice.textContent = "*Preço em reais estimado. Cotação final será confirmada no momento da reserva.";
@@ -1713,18 +1736,20 @@
       } else if (price && exchangeStatus === "error") {
         const parts = priceParts(price.usd);
         entry.textContent = formatUSD(parts.entrada);
-        priceQualifier.textContent = exactSelection ? "Entrada de" : "Entrada a partir de";
+        priceQualifier.textContent = "Entrada de";
         quoteInstallment.textContent = `+ 10x s/ juros de ${formatUSD(parts.installment)}`;
         quotePix.textContent = `ou à vista no pix por ${formatUSD(parts.pix)} com 8% de desconto.`;
+        quoteTotal.textContent = "Total em reais indisponível";
         quoteUsd.textContent = `${formatUSD(price.usd)} por pessoa`;
         usdSell.textContent = "indisponível";
         quoteNotice.textContent = "erro ao carregar cotação em reais, solicite cotação real por WhatsApp";
         quoteNotice.classList.add("error");
       } else {
         entry.textContent = "Carregando";
-        priceQualifier.textContent = exactSelection ? "Entrada de" : "Entrada a partir de";
+        priceQualifier.textContent = "Entrada de";
         quoteInstallment.textContent = "+ 10x s/ juros de --";
         quotePix.textContent = "ou à vista no pix por -- com 8% de desconto.";
+        quoteTotal.textContent = "Total em reais: --";
         quoteUsd.textContent = price ? `${formatUSD(price.usd)} por pessoa` : "USD por pessoa";
         usdSell.textContent = "carregando...";
         quoteNotice.textContent = "erro";
@@ -1738,9 +1763,6 @@
 
     document.querySelectorAll("[data-option]").forEach((button) => {
       button.addEventListener("click", () => {
-        if (button.dataset.option === "air") {
-          state.origin = null;
-        }
         state[button.dataset.option] = button.dataset.value;
         renderOffer();
       });
